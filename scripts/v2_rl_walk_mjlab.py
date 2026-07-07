@@ -1,5 +1,8 @@
 import argparse
+import atexit
+from datetime import datetime
 import os
+import sys
 import time
 
 import numpy as np
@@ -69,6 +72,70 @@ ACTION_SCALE_BY_JOINT = {
 ANCHOR_BODY_INDEX = 0
 OBS_DIM = 87
 ACTION_DIM = 14
+
+JOINT_LIMITS_BY_JOINT = {
+    "left_hip_yaw": (-0.523599, 0.523599),
+    "left_hip_roll": (-0.436332, 0.436332),
+    "left_hip_pitch": (-1.22173, 0.523599),
+    "left_knee": (-1.5708, 1.5708),
+    "left_ankle": (-1.5708, 1.5708),
+    "neck_pitch": (-0.349066, 1.13446),
+    "head_pitch": (-0.785398, 0.785398),
+    "head_yaw": (-2.79253, 2.79253),
+    "head_roll": (-0.523599, 0.523599),
+    "right_hip_yaw": (-0.523599, 0.523599),
+    "right_hip_roll": (-0.436332, 0.436332),
+    "right_hip_pitch": (-0.523599, 1.22173),
+    "right_knee": (-1.5708, 1.5708),
+    "right_ankle": (-1.5708, 1.5708),
+}
+
+OBS_SLICES = (
+    ("ref_pos", 0, 16),
+    ("ref_vel", 16, 32),
+    ("anchor_ori", 32, 38),
+    ("gyro", 38, 41),
+    ("joint_pos", 41, 57),
+    ("joint_vel", 57, 73),
+    ("last_action", 73, 87),
+)
+
+
+class TeeStream:
+    def __init__(self, *streams):
+        self.streams = streams
+
+    def write(self, data):
+        for stream in self.streams:
+            stream.write(data)
+            stream.flush()
+        return len(data)
+
+    def flush(self):
+        for stream in self.streams:
+            stream.flush()
+
+
+def setup_log_file(log_path):
+    if log_path is None:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_path = os.path.join("logs", f"mjlab_runtime_{timestamp}.log")
+    log_path = os.path.abspath(log_path)
+    os.makedirs(os.path.dirname(log_path), exist_ok=True)
+    log_file = open(log_path, "a", buffering=1)
+    original_stdout = sys.stdout
+    original_stderr = sys.stderr
+    sys.stdout = TeeStream(original_stdout, log_file)
+    sys.stderr = TeeStream(original_stderr, log_file)
+
+    def close_log():
+        sys.stdout = original_stdout
+        sys.stderr = original_stderr
+        log_file.close()
+
+    atexit.register(close_log)
+    print(f"[mjlab] logging to {log_path}")
+    return log_path
 
 
 def quat_normalize_wxyz(q):
@@ -162,6 +229,10 @@ class MjlabRLWalk:
         max_target_step=0.08,
         action_gain=1.0,
         initial_pose="motion_start",
+        safety_clip=True,
+        joint_limit_margin=0.02,
+        debug_interval_s=1.0,
+        debug_top_k=5,
         dry_run=False,
         debug=False,
     ):
@@ -171,6 +242,10 @@ class MjlabRLWalk:
         self.max_target_step = max_target_step
         self.action_gain = action_gain
         self.initial_pose = initial_pose
+        self.safety_clip = safety_clip
+        self.joint_limit_margin = joint_limit_margin
+        self.debug_interval_steps = max(1, int(round(debug_interval_s * control_freq)))
+        self.debug_top_k = debug_top_k
 
         self.policy = OnnxInfer(onnx_model_path, awd=True)
         self.motion = MjlabMotionReference(motion_path)
@@ -189,17 +264,45 @@ class MjlabRLWalk:
             [ACTION_SCALE_BY_JOINT[name] for name in ACTION_ORDER_14],
             dtype=np.float32,
         )
+        self.joint_lower = np.array(
+            [JOINT_LIMITS_BY_JOINT[name][0] for name in ACTION_ORDER_14],
+            dtype=np.float32,
+        )
+        self.joint_upper = np.array(
+            [JOINT_LIMITS_BY_JOINT[name][1] for name in ACTION_ORDER_14],
+            dtype=np.float32,
+        )
+        self.clip_lower = self.joint_lower + self.joint_limit_margin
+        self.clip_upper = self.joint_upper - self.joint_limit_margin
         self.motor_targets = np.zeros(ACTION_DIM, dtype=np.float32)
         self.action_filter = None
         if cutoff_frequency is not None:
             self.action_filter = LowPassActionFilter(control_freq, cutoff_frequency)
 
         self._check_runtime_order()
+        self._print_startup_summary(onnx_model_path, motion_path)
         if not dry_run:
             self.start(self._initial_pose_targets())
             current_pos = self.hwi.get_present_positions()
             if current_pos is not None and len(current_pos) == ACTION_DIM:
                 self.motor_targets = current_pos.astype(np.float32)
+                self._warn_limit_violations("current_after_start", self.motor_targets)
+
+    def _print_startup_summary(self, onnx_model_path, motion_path):
+        if not self.debug:
+            return
+        print("[mjlab] startup")
+        print(f"  policy: {onnx_model_path}")
+        print(f"  motion: {motion_path}")
+        print(f"  control_freq: {self.control_freq} Hz")
+        print(f"  action_gain: {self.action_gain}")
+        print(f"  max_target_step: {self.max_target_step}")
+        print(f"  safety_clip: {self.safety_clip}, margin: {self.joint_limit_margin}")
+        print("  action order / scale / logical limits:")
+        for name, scale, lo, hi in zip(
+            ACTION_ORDER_14, self.action_scale, self.joint_lower, self.joint_upper
+        ):
+            print(f"    {name:16s} scale={scale:.3f} limit=[{lo:.3f}, {hi:.3f}]")
 
     def _check_runtime_order(self):
         if len(ACTION_ORDER_14) != ACTION_DIM:
@@ -254,8 +357,14 @@ class MjlabRLWalk:
 
         pos_by_name = dict(zip(ACTION_ORDER_14, pos_14))
         vel_by_name = dict(zip(ACTION_ORDER_14, vel_14))
-        pos_16 = np.array([pos_by_name.get(name, 0.0) for name in JOINT_ORDER_16], dtype=np.float32)
-        vel_16 = np.array([vel_by_name.get(name, 0.0) for name in JOINT_ORDER_16], dtype=np.float32)
+        pos_16 = np.array(
+            [pos_by_name.get(name, 0.0) for name in JOINT_ORDER_16],
+            dtype=np.float32,
+        )
+        vel_16 = np.array(
+            [vel_by_name.get(name, 0.0) for name in JOINT_ORDER_16],
+            dtype=np.float32,
+        )
         return pos_16, vel_16
 
     def get_obs(self):
@@ -284,6 +393,31 @@ class MjlabRLWalk:
             raise ValueError(f"obs shape {obs.shape} != ({OBS_DIM},)")
         return obs
 
+    def _limit_margin(self, values):
+        return np.minimum(values - self.joint_lower, self.joint_upper - values)
+
+    def _warn_limit_violations(self, label, values):
+        low = values < self.joint_lower
+        high = values > self.joint_upper
+        near = self._limit_margin(values) < self.joint_limit_margin
+        mask = low | high | near
+        if not np.any(mask):
+            return
+        print(f"[mjlab][limit] {label}")
+        for i in np.where(mask)[0]:
+            name = ACTION_ORDER_14[i]
+            state = "LOW" if low[i] else "HIGH" if high[i] else "NEAR"
+            print(
+                f"  {state:4s} {name:16s} value={values[i]: .4f} "
+                f"limit=[{self.joint_lower[i]: .4f}, {self.joint_upper[i]: .4f}]"
+            )
+
+    def _format_top_abs(self, label, values, names, top_k=None):
+        top_k = self.debug_top_k if top_k is None else top_k
+        order = np.argsort(-np.abs(values))[:top_k]
+        parts = [f"{names[i]}={values[i]:+.3f}" for i in order]
+        return f"{label}: " + ", ".join(parts)
+
     def _targets_from_action(self, action):
         action = np.asarray(action, dtype=np.float32)
         if action.shape != (ACTION_DIM,):
@@ -296,7 +430,63 @@ class MjlabRLWalk:
                 self.max_target_step,
             )
             target = self.motor_targets + delta
+        unclipped = target.astype(np.float32)
+        if self.safety_clip:
+            target = np.clip(unclipped, self.clip_lower, self.clip_upper)
+            clipped = np.abs(target - unclipped) > 1e-6
+            if np.any(clipped):
+                print(f"[mjlab][clip] frame={self.motion_i % self.motion.num_frames}")
+                for i in np.where(clipped)[0]:
+                    print(
+                        f"  {ACTION_ORDER_14[i]:16s} raw={unclipped[i]: .4f} "
+                        f"clipped={target[i]: .4f} "
+                        f"safe=[{self.clip_lower[i]: .4f}, {self.clip_upper[i]: .4f}]"
+                    )
+        else:
+            self._warn_limit_violations("target_unclipped", unclipped)
         return target.astype(np.float32)
+
+    def _debug_print_step(self, obs, action, target):
+        ref_pos = obs[0:16]
+        ref_vel = obs[16:32]
+        joint_pos_16 = obs[41:57]
+        joint_vel_16 = obs[57:73]
+        pos_by_name = dict(zip(JOINT_ORDER_16, joint_pos_16))
+        vel_by_name = dict(zip(JOINT_ORDER_16, joint_vel_16))
+        ref_by_name = dict(zip(JOINT_ORDER_16, ref_pos))
+        current_14 = np.array(
+            [pos_by_name[name] for name in ACTION_ORDER_14],
+            dtype=np.float32,
+        )
+        vel_14 = np.array(
+            [vel_by_name[name] for name in ACTION_ORDER_14],
+            dtype=np.float32,
+        )
+        ref_14 = np.array(
+            [ref_by_name[name] for name in ACTION_ORDER_14],
+            dtype=np.float32,
+        )
+        target_error = target - current_14
+        ref_error = current_14 - ref_14
+        obs_norms = ", ".join(
+            f"{name}={np.linalg.norm(obs[start:end]):.3f}"
+            for name, start, end in OBS_SLICES
+        )
+        print(
+            "[mjlab] "
+            f"frame={self.motion_i % self.motion.num_frames} "
+            f"obs_norm={np.linalg.norm(obs):.3f} "
+            f"action_abs_max={np.max(np.abs(action)):.3f} "
+            f"target_abs_max={np.max(np.abs(target)):.3f} "
+            f"current_abs_max={np.max(np.abs(current_14)):.3f}"
+        )
+        print(f"  obs: {obs_norms}")
+        print("  " + self._format_top_abs("action", action, ACTION_ORDER_14))
+        print("  " + self._format_top_abs("target-current", target_error, ACTION_ORDER_14))
+        print("  " + self._format_top_abs("current-ref", ref_error, ACTION_ORDER_14))
+        print("  " + self._format_top_abs("joint_vel", vel_14, ACTION_ORDER_14))
+        self._warn_limit_violations("current", current_14)
+        self._warn_limit_violations("target", target)
 
     def step(self):
         obs = self.get_obs()
@@ -312,15 +502,8 @@ class MjlabRLWalk:
         self.last_action = action.copy()
         self.motor_targets = target.copy()
 
-        if self.debug and self.motion_i % max(1, self.control_freq) == 0:
-            print(
-                "[mjlab] "
-                f"frame={self.motion_i % self.motion.num_frames} "
-                f"obs_norm={np.linalg.norm(obs):.3f} "
-                f"action_abs_max={np.max(np.abs(action)):.3f} "
-                f"action_gain={self.action_gain:.3f} "
-                f"target_abs_max={np.max(np.abs(target)):.3f}"
-            )
+        if self.debug and self.motion_i % self.debug_interval_steps == 0:
+            self._debug_print_step(obs, action, target)
 
         if self.hwi is not None:
             self.hwi.set_position_all(make_action_dict(target, ACTION_ORDER_14))
@@ -360,6 +543,29 @@ def main():
     parser.add_argument("--max_target_step", type=float, default=0.08)
     parser.add_argument("--action_gain", type=float, default=1.0)
     parser.add_argument(
+        "--no_safety_clip",
+        action="store_true",
+        help="Disable MJCF joint-range clipping for target positions.",
+    )
+    parser.add_argument(
+        "--joint_limit_margin",
+        type=float,
+        default=0.02,
+        help="Safety margin in radians inside each MJCF joint range.",
+    )
+    parser.add_argument(
+        "--debug_interval_s",
+        type=float,
+        default=1.0,
+        help="Seconds between detailed debug prints when --debug is enabled.",
+    )
+    parser.add_argument(
+        "--debug_top_k",
+        type=int,
+        default=5,
+        help="Number of largest per-joint values to print in debug summaries.",
+    )
+    parser.add_argument(
         "--initial_pose",
         choices=("motion_start", "zero"),
         default="motion_start",
@@ -367,7 +573,18 @@ def main():
     )
     parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--debug", action="store_true")
+    parser.add_argument(
+        "--log_path",
+        default=None,
+        help=(
+            "Write terminal/debug output to this log file as well. "
+            "When omitted with --debug, a timestamped file is created under logs/."
+        ),
+    )
     args = parser.parse_args()
+
+    if args.debug or args.log_path is not None:
+        setup_log_file(args.log_path)
 
     runner = MjlabRLWalk(
         onnx_model_path=args.onnx_model_path,
@@ -381,6 +598,10 @@ def main():
         max_target_step=args.max_target_step,
         action_gain=args.action_gain,
         initial_pose=args.initial_pose,
+        safety_clip=not args.no_safety_clip,
+        joint_limit_margin=args.joint_limit_margin,
+        debug_interval_s=args.debug_interval_s,
+        debug_top_k=args.debug_top_k,
         dry_run=args.dry_run,
         debug=args.debug,
     )
