@@ -87,13 +87,14 @@ class HWI:
     def set_kp(self, id, kp):
         self.io.set_kps([id], [kp])
 
-    def turn_on(self):
+    def turn_on(self, target_pos=None):
         self.io.set_kps(list(self.joints.values()), self.low_torque_kps)
         print("turn on : low KPS set")
         time.sleep(1)
 
-        self.set_position_all(self.init_pos)
-        print("turn on : init pos set")
+        target_pos = self.init_pos if target_pos is None else target_pos
+        self.set_position_all(target_pos)
+        print("turn on : target pos set")
 
         time.sleep(1)
 
@@ -116,14 +117,14 @@ class HWI:
         joints_positions is a dictionary with joint names as keys and joint positions as values
         Warning: expects radians
         """
-        ids_positions = {
-            self.joints[joint]: position + self.joints_offsets[joint]
-            for joint, position in joints_positions.items()
-        }
+        joints = [joint for joint in self.joints if joint in joints_positions]
+        ids = [self.joints[joint] for joint in joints]
+        positions = [
+            joints_positions[joint] + self.joints_offsets[joint]
+            for joint in joints
+        ]
 
-        self.io.write_goal_position(
-            list(self.joints.values()), list(ids_positions.values())
-        )
+        self.io.write_goal_position(ids, positions)
 
     def get_present_positions(self, ignore=[]):
         """

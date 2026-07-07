@@ -6,4 +6,5 @@ python v2_rl_walk_mjlab.py \
   --control_freq 50 \
   --max_target_step 0.04 \
   --action_gain 0.1 \
+  --initial_pose motion_start \
   --debug

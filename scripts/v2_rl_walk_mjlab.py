@@ -161,6 +161,7 @@ class MjlabRLWalk:
         cutoff_frequency=None,
         max_target_step=0.08,
         action_gain=1.0,
+        initial_pose="motion_start",
         dry_run=False,
         debug=False,
     ):
@@ -169,6 +170,7 @@ class MjlabRLWalk:
         self.control_freq = control_freq
         self.max_target_step = max_target_step
         self.action_gain = action_gain
+        self.initial_pose = initial_pose
 
         self.policy = OnnxInfer(onnx_model_path, awd=True)
         self.motion = MjlabMotionReference(motion_path)
@@ -194,7 +196,7 @@ class MjlabRLWalk:
 
         self._check_runtime_order()
         if not dry_run:
-            self.start()
+            self.start(self._initial_pose_targets())
             current_pos = self.hwi.get_present_positions()
             if current_pos is not None and len(current_pos) == ACTION_DIM:
                 self.motor_targets = current_pos.astype(np.float32)
@@ -213,13 +215,30 @@ class MjlabRLWalk:
                 f"mjlab:  {ACTION_ORDER_14}"
             )
 
-    def start(self):
+    def _initial_pose_targets(self):
+        if self.initial_pose == "zero":
+            values = np.zeros(ACTION_DIM, dtype=np.float32)
+        elif self.initial_pose == "motion_start":
+            joint_pos_16, _, _ = self.motion.frame(0)
+            values_by_name = dict(zip(JOINT_ORDER_16, joint_pos_16))
+            values = np.array(
+                [values_by_name[name] for name in ACTION_ORDER_14],
+                dtype=np.float32,
+            )
+        else:
+            raise ValueError(
+                f"Unsupported initial_pose {self.initial_pose!r}; "
+                "use 'motion_start' or 'zero'"
+            )
+        return dict(zip(ACTION_ORDER_14, values))
+
+    def start(self, target_pos):
         kps = [self.pid[0]] * ACTION_DIM
         kds = [self.pid[2]] * ACTION_DIM
         kps[5:9] = [8, 8, 8, 8]
         self.hwi.set_kps(kps)
         self.hwi.set_kds(kds)
-        self.hwi.turn_on()
+        self.hwi.turn_on(target_pos=target_pos)
         time.sleep(1.0)
 
     def _read_joint_state_16(self):
@@ -340,6 +359,12 @@ def main():
     parser.add_argument("--cutoff_frequency", type=float, default=None)
     parser.add_argument("--max_target_step", type=float, default=0.08)
     parser.add_argument("--action_gain", type=float, default=1.0)
+    parser.add_argument(
+        "--initial_pose",
+        choices=("motion_start", "zero"),
+        default="motion_start",
+        help="Joint target used during motor turn-on before policy starts.",
+    )
     parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
@@ -355,6 +380,7 @@ def main():
         cutoff_frequency=args.cutoff_frequency,
         max_target_step=args.max_target_step,
         action_gain=args.action_gain,
+        initial_pose=args.initial_pose,
         dry_run=args.dry_run,
         debug=args.debug,
     )

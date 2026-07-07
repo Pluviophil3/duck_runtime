@@ -79,6 +79,7 @@
   "runtime_notes": [
     "The 16D reference and joint-state order follows the OpenDuck MJCF joint order.",
     "The 14D action order is joint_order_16 with left_antenna and right_antenna removed.",
-    "Do not use the legacy runtime action_scale=0.25 or init_pos action offset for this policy."
+    "Do not use the legacy runtime action_scale=0.25 or init_pos action offset for this policy.",
+    "The mjlab tracking play reset starts at reference motion frame 0, so runtime initial_pose should be motion_start unless explicitly validating zero pose."
   ]
 }

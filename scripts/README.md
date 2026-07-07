@@ -21,6 +21,33 @@ cd duck_runtime
 python scripts/verify_mjlab_deploy.py
 ```
 
+Check the mjlab-aligned initial pose without loading the policy:
+
+```bash
+cd duck_runtime/scripts
+python check_mjlab_initial_pose.py \
+  --pose motion_start \
+  --motion_path A2_-_Sway_t2_stageii.npz \
+  --duck_config_path ../duck_config.json
+```
+
+This prints the reference frame-0 target and the current joint error. It does
+not command motors unless `--command` is added. For a very low-gain hold test:
+
+```bash
+python check_mjlab_initial_pose.py \
+  --pose motion_start \
+  --motion_path A2_-_Sway_t2_stageii.npz \
+  --duck_config_path ../duck_config.json \
+  --kp 2 \
+  --hold_seconds 5 \
+  --command
+```
+
+Use `--pose zero` to check the mjlab default joint position instead. The tracking
+play reset starts from `motion_start`, so that is the pose used before policy
+execution by default.
+
 Run on the robot:
 
 ```bash
@@ -31,6 +58,7 @@ python v2_rl_walk_mjlab.py \
   --duck_config_path ../duck_config.json \
   --control_freq 50 \
   --max_target_step 0.08 \
+  --initial_pose motion_start \
   --debug
 ```
 
@@ -97,4 +125,3 @@ sudo systemctl start open-duck-mini.service <br>
 ``` tail -f duck_runtime.log ```
 
 ### Modify your prompt as my prompt - ```xiaozhi-prompt.txt``` in the Xiaozhi backend
-
