@@ -1,4 +1,4 @@
-cd ~/duck_runtime/scripts
+cd ~/Open_Duck_Mini_Runtime/scripts
 python v2_rl_walk_mjlab.py \
   --onnx_model_path sway_t2_full.onnx \
   --motion_path A2_-_Sway_t2_stageii.npz \
