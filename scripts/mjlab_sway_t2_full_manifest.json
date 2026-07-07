@@ -1,0 +1,84 @@
+{
+  "name": "sway_t2_full",
+  "task": "OpenDuck-Tracking-No-State-Estimation",
+  "training_run": "unitree_rl_mjlab/logs/rsl_rl/open_duck_tracking/2026-07-06_15-33-06_sway-t2-full",
+  "policy": {
+    "path": "sway_t2_full.onnx",
+    "sha256": "0dd6d1a145c9e781d6d525a37de310df7d9085b981a6abc3e67a8462b80413d8",
+    "input_name": "obs",
+    "input_dim": 87,
+    "output_dim": 14
+  },
+  "motion": {
+    "path": "A2_-_Sway_t2_stageii.npz",
+    "sha256": "307d59642ae9c01eb65df4487b41a634f57e9c4aac28af64ac98e284658e6919",
+    "fps": 50,
+    "anchor_body_name": "trunk_assembly",
+    "anchor_body_index": 0
+  },
+  "observation_schema": [
+    {"name": "reference_joint_position", "start": 0, "end": 16, "dim": 16},
+    {"name": "reference_joint_velocity", "start": 16, "end": 32, "dim": 16},
+    {"name": "motion_anchor_orientation_6d", "start": 32, "end": 38, "dim": 6},
+    {"name": "base_angular_velocity", "start": 38, "end": 41, "dim": 3},
+    {"name": "joint_position_relative", "start": 41, "end": 57, "dim": 16},
+    {"name": "joint_velocity_relative", "start": 57, "end": 73, "dim": 16},
+    {"name": "last_action", "start": 73, "end": 87, "dim": 14}
+  ],
+  "joint_order_16": [
+    "left_hip_yaw",
+    "left_hip_roll",
+    "left_hip_pitch",
+    "left_knee",
+    "left_ankle",
+    "neck_pitch",
+    "head_pitch",
+    "head_yaw",
+    "head_roll",
+    "left_antenna",
+    "right_antenna",
+    "right_hip_yaw",
+    "right_hip_roll",
+    "right_hip_pitch",
+    "right_knee",
+    "right_ankle"
+  ],
+  "action_order_14": [
+    "left_hip_yaw",
+    "left_hip_roll",
+    "left_hip_pitch",
+    "left_knee",
+    "left_ankle",
+    "neck_pitch",
+    "head_pitch",
+    "head_yaw",
+    "head_roll",
+    "right_hip_yaw",
+    "right_hip_roll",
+    "right_hip_pitch",
+    "right_knee",
+    "right_ankle"
+  ],
+  "action_scale_14": [
+    0.13,
+    0.13,
+    0.13,
+    0.13,
+    0.13,
+    0.10,
+    0.10,
+    0.10,
+    0.10,
+    0.13,
+    0.13,
+    0.13,
+    0.13,
+    0.13
+  ],
+  "action_offset": "mjlab_default_joint_position_zero",
+  "runtime_notes": [
+    "The 16D reference and joint-state order follows the OpenDuck MJCF joint order.",
+    "The 14D action order is joint_order_16 with left_antenna and right_antenna removed.",
+    "Do not use the legacy runtime action_scale=0.25 or init_pos action offset for this policy."
+  ]
+}

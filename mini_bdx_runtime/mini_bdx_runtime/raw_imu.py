@@ -97,6 +97,7 @@ class Imu:
         self.last_imu_data = {
             "gyro": [0, 0, 0],
             "accelero": [0, 0, 0],
+            "quat_wxyz": [1, 0, 0, 0],
         }
         self.imu_queue = Queue(maxsize=1)
         Thread(target=self.imu_worker, daemon=True).start()
@@ -129,14 +130,20 @@ class Imu:
             try:
                 gyro = np.array(self.imu.gyro).copy()
                 accelero = np.array(self.imu.acceleration).copy()
+                raw_quat_wxyz = self.imu.quaternion
             except Exception as e:
                 print("[IMU]:", e)
                 continue
 
             if gyro is None or accelero is None:
                 continue
+            if raw_quat_wxyz is None:
+                continue
+            quat_wxyz = np.array(raw_quat_wxyz).copy()
 
             if gyro.any() is None or accelero.any() is None:
+                continue
+            if quat_wxyz.any() is None:
                 continue
 
             accelero[0] -= self.x_offset
@@ -144,6 +151,7 @@ class Imu:
             data = {
                 "gyro": gyro,
                 "accelero": accelero,
+                "quat_wxyz": quat_wxyz,
             }
 
             self.imu_queue.put(data)

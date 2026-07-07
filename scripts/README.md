@@ -1,3 +1,43 @@
+# Runtime scripts
+
+## Mjlab sway-t2-full deployment
+
+The mjlab tracking policy must run through `v2_rl_walk_mjlab.py`, not the legacy
+`v2_rl_walk_mujoco.py` entry point. The legacy script builds a different 87D
+observation and uses the old single `action_scale=0.25` offset convention.
+
+Files for the current deployment:
+
+```bash
+scripts/sway_t2_full.onnx
+scripts/A2_-_Sway_t2_stageii.npz
+scripts/mjlab_sway_t2_full_manifest.json
+```
+
+Verify the order manifest before running on the robot:
+
+```bash
+cd duck_runtime
+python scripts/verify_mjlab_deploy.py
+```
+
+Run on the robot:
+
+```bash
+cd duck_runtime/scripts
+python v2_rl_walk_mjlab.py \
+  --onnx_model_path sway_t2_full.onnx \
+  --motion_path A2_-_Sway_t2_stageii.npz \
+  --duck_config_path ../duck_config.json \
+  --control_freq 50 \
+  --max_target_step 0.08 \
+  --debug
+```
+
+The manifest pins the 16D joint/reference order, 14D action order, observation
+slices, action scale, and file hashes. Keep it in sync whenever replacing the
+policy or motion file.
+
 # Xiaozhi speech control with duck mini
 
 ## Raspberry Pi 4 Used.
@@ -57,5 +97,4 @@ sudo systemctl start open-duck-mini.service <br>
 ``` tail -f duck_runtime.log ```
 
 ### Modify your prompt as my prompt - ```xiaozhi-prompt.txt``` in the Xiaozhi backend
-
 
