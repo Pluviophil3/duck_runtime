@@ -1,0 +1,604 @@
+[mjlab] logging to /home/lxkj/Open_Duck_Mini_Runtime/scripts/logs/test_run.log
+Traceback (most recent call last):
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/v2_rl_walk_mjlab.py", line 612, in <module>
+    main()
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/v2_rl_walk_mjlab.py", line 589, in main
+    runner = MjlabRLWalk(
+             ^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/v2_rl_walk_mjlab.py", line 258, in __init__
+    self.hwi = None if dry_run else HWI(self.duck_config, serial_port)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/mini_bdx_runtime/mini_bdx_runtime/rustypot_position_hwi.py", line 77, in __init__
+    self.io = rustypot.feetech(usb_port, 1000000)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: Device or resource busy
+[mjlab] logging to /home/lxkj/Open_Duck_Mini_Runtime/scripts/logs/test_run.log
+[mjlab] startup
+  policy: sway_t2_full.onnx
+  motion: A2_-_Sway_t2_stageii.npz
+  control_freq: 50 Hz
+  action_gain: 1.0
+  max_target_step: 0.08
+  safety_clip: True, margin: 0.02
+  action order / scale / logical limits:
+    left_hip_yaw     scale=0.130 limit=[-0.524, 0.524]
+    left_hip_roll    scale=0.130 limit=[-0.436, 0.436]
+    left_hip_pitch   scale=0.130 limit=[-1.222, 0.524]
+    left_knee        scale=0.130 limit=[-1.571, 1.571]
+    left_ankle       scale=0.130 limit=[-1.571, 1.571]
+    neck_pitch       scale=0.100 limit=[-0.349, 1.134]
+    head_pitch       scale=0.100 limit=[-0.785, 0.785]
+    head_yaw         scale=0.100 limit=[-2.793, 2.793]
+    head_roll        scale=0.100 limit=[-0.524, 0.524]
+    right_hip_yaw    scale=0.130 limit=[-0.524, 0.524]
+    right_hip_roll   scale=0.130 limit=[-0.436, 0.436]
+    right_hip_pitch  scale=0.130 limit=[-0.524, 1.222]
+    right_knee       scale=0.130 limit=[-1.571, 1.571]
+    right_ankle      scale=0.130 limit=[-1.571, 1.571]
+turn on : low KPS set
+turn on : target pos set
+turn on : high kps
+Starting mjlab tracking runtime
+motion frames: 798, fps: 50.0
+[mjlab][clip] frame=0
+  right_hip_roll   raw=-0.4936 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=0 obs_norm=14.378 action_abs_max=5.584 target_abs_max=0.726 current_abs_max=0.437
+  obs: ref_pos=0.577, ref_vel=14.285, anchor_ori=1.414, gyro=0.016, joint_pos=0.579, joint_vel=0.000, last_action=0.000
+  action: left_hip_pitch=-5.584, left_knee=+4.486, right_knee=+4.259, head_pitch=+4.184, right_hip_roll=-3.797
+  target-current: left_hip_pitch=-0.642, left_knee=+0.593, head_pitch=+0.447, right_knee=+0.411, left_hip_yaw=-0.399
+  current-ref: head_pitch=-0.031, head_yaw=-0.021, right_hip_pitch=-0.011, left_ankle=+0.009, right_ankle=+0.008
+  joint_vel: left_hip_yaw=+0.000, left_hip_roll=+0.000, left_hip_pitch=+0.000, left_knee=+0.000, left_ankle=+0.000
+[mjlab] frame=50 obs_norm=15.401 action_abs_max=7.625 target_abs_max=0.991 current_abs_max=0.957
+  obs: ref_pos=1.761, ref_vel=0.221, anchor_ori=1.414, gyro=0.279, joint_pos=1.906, joint_vel=0.230, last_action=15.108
+  action: left_hip_pitch=-7.625, left_knee=+6.886, right_knee=+6.457, right_ankle=-5.865, right_hip_pitch=+3.017
+  target-current: neck_pitch=-0.076, right_knee=-0.068, head_pitch=+0.061, left_hip_roll=+0.054, head_roll=-0.034
+  current-ref: left_hip_pitch=-0.629, left_ankle=+0.571, right_hip_yaw=+0.335, head_roll=-0.199, head_yaw=+0.198
+  joint_vel: left_hip_roll=+0.153, left_hip_pitch=-0.077, head_yaw=+0.077, head_roll=-0.077, right_hip_roll=-0.077
+[mjlab] frame=100 obs_norm=15.431 action_abs_max=8.340 target_abs_max=1.084 current_abs_max=1.083
+  obs: ref_pos=1.696, ref_vel=0.145, anchor_ori=1.414, gyro=0.154, joint_pos=1.955, joint_vel=0.526, last_action=15.136
+  action: left_hip_pitch=-8.340, left_knee=+7.116, right_knee=+6.246, right_ankle=-5.660, neck_pitch=-2.950
+  target-current: neck_pitch=-0.097, left_ankle=-0.071, right_knee=-0.050, head_roll=+0.033, left_knee=-0.020
+  current-ref: left_hip_pitch=-0.772, left_ankle=+0.541, right_hip_yaw=+0.278, head_roll=-0.142, head_yaw=+0.131
+  joint_vel: right_ankle=+0.460, right_knee=-0.230, left_hip_yaw=+0.077, right_hip_roll=+0.077, left_hip_roll=+0.000
+[mjlab] frame=150 obs_norm=16.367 action_abs_max=8.270 target_abs_max=1.075 current_abs_max=1.086
+  obs: ref_pos=1.867, ref_vel=0.438, anchor_ori=1.414, gyro=0.573, joint_pos=2.019, joint_vel=2.109, last_action=15.917
+  action: left_hip_pitch=-8.270, left_knee=+7.346, right_knee=+6.389, right_ankle=-5.952, right_hip_pitch=+3.464
+  target-current: left_hip_roll=+0.225, right_hip_yaw=+0.154, right_hip_roll=-0.144, right_hip_pitch=+0.136, right_knee=-0.097
+  current-ref: left_hip_pitch=-0.802, left_ankle=+0.613, right_hip_yaw=+0.269, left_hip_yaw=+0.172, head_roll=-0.170
+  joint_vel: right_hip_roll=-1.534, left_hip_roll=+1.151, left_knee=+0.537, left_ankle=+0.460, right_knee=-0.384
+[mjlab][clip] frame=161
+  right_hip_roll   raw=-0.4277 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=174
+  right_hip_roll   raw=-0.4302 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=200 obs_norm=15.632 action_abs_max=6.978 target_abs_max=0.917 current_abs_max=1.001
+  obs: ref_pos=2.036, ref_vel=0.400, anchor_ori=1.414, gyro=0.546, joint_pos=1.909, joint_vel=3.965, last_action=14.778
+  action: left_knee=+6.978, left_hip_pitch=-6.651, right_knee=+5.348, right_ankle=-4.349, right_hip_pitch=+3.684
+  target-current: right_hip_yaw=+0.270, left_hip_roll=+0.210, right_knee=-0.157, right_hip_pitch=+0.139, left_hip_pitch=+0.136
+  current-ref: left_hip_pitch=-0.647, left_ankle=+0.553, head_roll=-0.316, right_hip_yaw=+0.274, right_knee=-0.263
+  joint_vel: right_hip_roll=-2.225, right_ankle=-2.225, left_hip_roll=+1.611, left_knee=+1.611, left_hip_pitch=-0.384
+[mjlab] frame=250 obs_norm=15.174 action_abs_max=7.722 target_abs_max=1.004 current_abs_max=0.974
+  obs: ref_pos=1.858, ref_vel=1.019, anchor_ori=1.414, gyro=0.390, joint_pos=1.880, joint_vel=0.724, last_action=14.817
+  action: left_hip_pitch=-7.722, left_knee=+6.793, right_knee=+6.634, right_ankle=-5.344, neck_pitch=-3.126
+  target-current: neck_pitch=-0.112, left_ankle=-0.074, head_yaw=-0.064, left_hip_yaw=+0.049, right_hip_pitch=-0.045
+  current-ref: left_hip_pitch=-0.598, left_ankle=+0.554, right_hip_yaw=+0.337, head_yaw=+0.150, neck_pitch=+0.147
+  joint_vel: left_hip_pitch=-0.384, left_ankle=-0.384, right_hip_pitch=-0.307, head_pitch=-0.230, head_roll=-0.153
+[mjlab][clip] frame=265
+  left_hip_roll    raw= 0.4185 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=269
+  left_hip_pitch   raw=-1.2223 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=270
+  left_hip_pitch   raw=-1.2407 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=271
+  left_hip_pitch   raw=-1.2509 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=272
+  left_hip_pitch   raw=-1.2510 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=273
+  left_hip_pitch   raw=-1.2269 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=275
+  left_hip_roll    raw= 0.4588 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=276
+  left_hip_roll    raw= 0.4963 clipped= 0.4163 safe=[-0.4163,  0.4163]
+  right_hip_yaw    raw= 0.5167 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=277
+  left_hip_roll    raw= 0.4963 clipped= 0.4163 safe=[-0.4163,  0.4163]
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=278
+  left_hip_roll    raw= 0.4863 clipped= 0.4163 safe=[-0.4163,  0.4163]
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=279
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=280
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=287
+  right_hip_yaw    raw= 0.5546 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=288
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=289
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=290
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=291
+  right_hip_yaw    raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=292
+  right_hip_yaw    raw= 0.5287 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=296
+  right_hip_yaw    raw= 0.5113 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=297
+  right_hip_yaw    raw= 0.5266 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=298
+  right_hip_yaw    raw= 0.5385 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=299
+  right_hip_yaw    raw= 0.5493 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=300
+  right_hip_yaw    raw= 0.5464 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab] frame=300 obs_norm=16.741 action_abs_max=7.615 target_abs_max=0.990 current_abs_max=0.995
+  obs: ref_pos=2.166, ref_vel=0.557, anchor_ori=1.414, gyro=0.338, joint_pos=2.049, joint_vel=0.861, last_action=16.377
+  action: left_hip_pitch=-7.615, right_knee=+7.472, left_knee=+6.355, right_ankle=-6.321, right_hip_yaw=+4.203
+  target-current: left_ankle=-0.062, left_hip_yaw=+0.060, head_pitch=+0.059, head_yaw=+0.049, neck_pitch=-0.041
+  current-ref: left_ankle=+0.721, left_hip_pitch=-0.440, right_hip_yaw=+0.355, head_yaw=+0.350, left_knee=-0.266
+  joint_vel: right_hip_roll=-0.767, left_knee=-0.230, head_yaw=+0.230, right_hip_yaw=-0.153, left_hip_yaw=+0.077
+[mjlab][limit] target
+  NEAR right_hip_yaw    value= 0.5036 limit=[-0.5236,  0.5236]
+[mjlab][clip] frame=301
+  right_hip_yaw    raw= 0.5407 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=302
+  right_hip_yaw    raw= 0.5293 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=303
+  right_hip_yaw    raw= 0.5167 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=304
+  right_hip_yaw    raw= 0.5098 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=305
+  right_hip_yaw    raw= 0.5091 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=306
+  right_hip_yaw    raw= 0.5120 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=307
+  right_hip_yaw    raw= 0.5146 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=308
+  right_hip_yaw    raw= 0.5208 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=309
+  right_hip_yaw    raw= 0.5216 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=310
+  right_hip_yaw    raw= 0.5136 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=311
+  right_hip_yaw    raw= 0.5039 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab] frame=350 obs_norm=16.205 action_abs_max=7.207 target_abs_max=0.937 current_abs_max=0.990
+  obs: ref_pos=2.198, ref_vel=0.237, anchor_ori=1.414, gyro=0.033, joint_pos=2.011, joint_vel=0.447, last_action=15.858
+  action: right_knee=+7.207, left_hip_pitch=-7.155, left_knee=+6.215, right_ankle=-6.109, head_roll=-4.560
+  target-current: head_roll=-0.054, right_knee=-0.053, left_ankle=-0.051, right_hip_pitch=+0.046, head_pitch=-0.029
+  current-ref: left_ankle=+0.699, head_yaw=+0.380, right_hip_yaw=+0.372, left_hip_pitch=-0.358, left_knee=-0.314
+  joint_vel: left_hip_pitch=-0.307, left_hip_roll=+0.153, left_knee=+0.153, head_pitch=-0.153, head_roll=-0.153
+[mjlab] frame=400 obs_norm=15.313 action_abs_max=7.003 target_abs_max=0.910 current_abs_max=0.947
+  obs: ref_pos=1.960, ref_vel=1.298, anchor_ori=1.414, gyro=0.467, joint_pos=1.914, joint_vel=0.955, last_action=14.906
+  action: right_knee=+7.003, left_hip_pitch=-6.632, left_knee=+6.298, right_ankle=-5.878, head_roll=-3.636
+  target-current: left_ankle=-0.074, neck_pitch=-0.072, head_yaw=+0.061, head_pitch=+0.060, left_hip_yaw=-0.047
+  current-ref: left_ankle=+0.586, left_hip_pitch=-0.437, right_hip_yaw=+0.301, head_yaw=+0.266, neck_pitch=+0.152
+  joint_vel: right_hip_yaw=-0.460, right_hip_roll=-0.460, left_knee=+0.307, left_ankle=-0.307, head_yaw=+0.307
+[mjlab] frame=450 obs_norm=14.955 action_abs_max=7.102 target_abs_max=0.908 current_abs_max=1.120
+  obs: ref_pos=2.008, ref_vel=0.528, anchor_ori=1.414, gyro=1.428, joint_pos=2.124, joint_vel=4.201, last_action=13.898
+  action: right_knee=+7.102, left_hip_pitch=-6.983, left_knee=+5.736, right_ankle=-3.732, left_ankle=-2.960
+  target-current: right_ankle=+0.230, left_hip_pitch=+0.212, left_knee=-0.185, left_ankle=-0.185, right_hip_yaw=+0.156
+  current-ref: left_hip_pitch=-0.801, left_ankle=+0.628, right_hip_yaw=+0.446, head_pitch=-0.239, head_roll=-0.197
+  joint_vel: left_hip_roll=+2.302, right_hip_yaw=+2.071, right_hip_roll=-1.765, left_knee=+1.688, right_hip_pitch=+0.844
+[mjlab][clip] frame=471
+  right_hip_roll   raw=-0.4282 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=472
+  right_hip_roll   raw=-0.4212 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=500 obs_norm=16.810 action_abs_max=8.266 target_abs_max=1.075 current_abs_max=1.100
+  obs: ref_pos=2.133, ref_vel=0.496, anchor_ori=1.414, gyro=1.073, joint_pos=2.109, joint_vel=2.895, last_action=16.180
+  action: left_hip_pitch=-8.266, right_knee=+8.074, left_knee=+7.323, head_yaw=+4.573, left_ankle=-3.854
+  target-current: right_ankle=+0.244, left_ankle=-0.153, left_knee=-0.148, right_hip_roll=+0.145, head_pitch=-0.111
+  current-ref: left_hip_pitch=-0.684, left_ankle=+0.466, right_hip_yaw=+0.270, left_hip_yaw=+0.243, right_hip_roll=-0.156
+  joint_vel: left_hip_roll=+1.611, right_hip_yaw=+1.611, right_hip_roll=-1.304, right_hip_pitch=+0.767, right_ankle=+0.767
+[mjlab][clip] frame=509
+  right_hip_roll   raw=-0.4371 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=510
+  right_hip_roll   raw=-0.4262 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=548
+  left_hip_roll    raw= 0.4385 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=550
+  neck_pitch       raw=-0.3475 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab] frame=550 obs_norm=15.192 action_abs_max=8.118 target_abs_max=1.055 current_abs_max=1.115
+  obs: ref_pos=1.927, ref_vel=1.156, anchor_ori=1.414, gyro=0.702, joint_pos=2.068, joint_vel=3.465, last_action=14.386
+  action: left_hip_pitch=-8.118, right_knee=+5.725, head_pitch=-5.404, left_knee=+5.020, neck_pitch=-3.475
+  target-current: left_knee=-0.300, head_pitch=-0.212, left_ankle=-0.201, right_ankle=+0.185, head_yaw=-0.155
+  current-ref: left_hip_pitch=-0.739, left_ankle=+0.652, right_hip_yaw=+0.254, head_roll=-0.219, head_yaw=+0.142
+  joint_vel: left_hip_roll=+2.071, right_hip_roll=-1.688, right_hip_yaw=+1.227, left_knee=-0.997, left_hip_yaw=-0.921
+[mjlab][clip] frame=551
+  neck_pitch       raw=-0.3772 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=552
+  neck_pitch       raw=-0.3849 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=553
+  neck_pitch       raw=-0.3698 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=554
+  neck_pitch       raw=-0.3499 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab] frame=600 obs_norm=9.109 action_abs_max=4.406 target_abs_max=0.573 current_abs_max=0.672
+  obs: ref_pos=2.232, ref_vel=1.192, anchor_ori=1.414, gyro=0.150, joint_pos=1.340, joint_vel=0.503, last_action=8.514
+  action: left_hip_pitch=-4.406, right_knee=+4.001, right_ankle=-2.822, neck_pitch=-2.197, right_hip_yaw=+2.138
+  target-current: left_knee=-0.467, head_pitch=+0.220, left_hip_roll=-0.140, right_hip_roll=+0.111, head_roll=-0.095
+  current-ref: left_ankle=+0.638, left_knee=-0.508, right_ankle=+0.475, right_knee=-0.416, left_hip_yaw=-0.231
+  joint_vel: head_pitch=+0.307, head_roll=-0.307, left_hip_pitch=+0.230, head_yaw=-0.077, right_ankle=-0.077
+[mjlab] frame=650 obs_norm=12.398 action_abs_max=6.809 target_abs_max=0.885 current_abs_max=0.865
+  obs: ref_pos=2.309, ref_vel=1.046, anchor_ori=1.414, gyro=0.038, joint_pos=1.609, joint_vel=0.623, last_action=11.929
+  action: right_knee=+6.809, left_hip_pitch=-5.051, left_knee=+4.821, right_ankle=-4.210, left_ankle=-3.093
+  target-current: left_hip_roll=-0.387, head_pitch=+0.269, left_knee=-0.238, left_ankle=-0.137, head_roll=-0.082
+  current-ref: left_ankle=+0.466, head_roll=+0.458, head_yaw=+0.380, right_ankle=+0.377, left_knee=-0.315
+  joint_vel: right_knee=+0.384, left_hip_yaw=+0.307, right_hip_pitch=+0.230, right_ankle=-0.230, head_pitch=+0.153
+[mjlab] frame=700 obs_norm=16.126 action_abs_max=7.868 target_abs_max=1.023 current_abs_max=0.975
+  obs: ref_pos=1.902, ref_vel=0.782, anchor_ori=1.414, gyro=1.064, joint_pos=1.957, joint_vel=1.978, last_action=15.651
+  action: left_hip_pitch=-7.868, left_knee=+6.990, right_knee=+6.715, right_ankle=-6.440, right_hip_pitch=+3.163
+  target-current: head_pitch=+0.111, right_knee=-0.078, right_hip_pitch=+0.075, left_hip_roll=+0.069, neck_pitch=-0.067
+  current-ref: left_ankle=+0.636, left_hip_pitch=-0.573, right_hip_yaw=+0.251, head_yaw=+0.205, head_pitch=-0.195
+  joint_vel: left_hip_pitch=-0.997, left_knee=+0.997, left_hip_roll=+0.921, left_ankle=+0.614, right_hip_roll=-0.537
+[mjlab][clip] frame=734
+  left_hip_pitch   raw=-1.2025 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=735
+  left_hip_pitch   raw=-1.2070 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=736
+  left_hip_pitch   raw=-1.2137 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=737
+  left_hip_pitch   raw=-1.2152 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=738
+  left_hip_pitch   raw=-1.2106 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=739
+  left_hip_pitch   raw=-1.2029 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab] frame=750 obs_norm=16.444 action_abs_max=8.498 target_abs_max=1.105 current_abs_max=1.185
+  obs: ref_pos=1.916, ref_vel=0.227, anchor_ori=1.414, gyro=0.380, joint_pos=2.099, joint_vel=1.778, last_action=16.030
+  action: left_hip_pitch=-8.498, left_knee=+7.086, right_knee=+6.527, right_ankle=-5.270, neck_pitch=-3.004
+  target-current: left_knee=-0.107, right_ankle=+0.084, neck_pitch=-0.081, left_hip_roll=+0.081, left_hip_pitch=+0.080
+  current-ref: left_hip_pitch=-0.795, left_ankle=+0.572, right_hip_yaw=+0.217, head_roll=-0.196, head_pitch=-0.147
+  joint_vel: right_hip_roll=-1.151, right_ankle=-1.151, left_hip_roll=+0.537, head_roll=+0.384, right_knee=+0.230
+[mjlab][clip] frame=769
+  right_hip_roll   raw=-0.4280 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=780
+  right_hip_roll   raw=-0.4206 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=2 obs_norm=14.018 action_abs_max=6.493 target_abs_max=0.844 current_abs_max=0.978
+  obs: ref_pos=0.742, ref_vel=8.841, anchor_ori=1.414, gyro=1.110, joint_pos=1.789, joint_vel=1.725, last_action=10.411
+  action: right_knee=+6.493, left_knee=+4.585, left_hip_pitch=-4.491, right_ankle=-3.294, right_hip_pitch=+2.402
+  target-current: left_knee=-0.325, head_roll=+0.255, left_hip_pitch=+0.246, left_hip_roll=-0.177, head_yaw=-0.158
+  current-ref: left_hip_pitch=-0.816, left_knee=+0.726, right_knee=+0.441, head_roll=-0.203, right_hip_pitch=+0.196
+  joint_vel: right_hip_yaw=-0.997, left_hip_roll=-0.844, right_hip_roll=+0.690, right_ankle=+0.537, left_hip_pitch=+0.460
+[mjlab] frame=52 obs_norm=15.267 action_abs_max=8.224 target_abs_max=1.069 current_abs_max=1.109
+  obs: ref_pos=1.754, ref_vel=0.246, anchor_ori=1.414, gyro=1.856, joint_pos=1.994, joint_vel=2.131, last_action=14.696
+  action: left_hip_pitch=-8.224, right_knee=+6.992, left_knee=+6.211, right_ankle=-5.486, neck_pitch=-2.727
+  target-current: left_ankle=-0.118, right_hip_roll=+0.099, left_knee=-0.095, right_ankle=+0.086, neck_pitch=-0.078
+  current-ref: left_hip_pitch=-0.782, left_ankle=+0.657, right_hip_yaw=+0.347, head_yaw=+0.192, head_roll=-0.136
+  joint_vel: right_ankle=+1.534, right_hip_yaw=+1.074, right_knee=-0.767, left_hip_pitch=-0.384, left_hip_roll=+0.307
+[mjlab][clip] frame=58
+  left_hip_roll    raw= 0.4481 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=59
+  left_hip_roll    raw= 0.4477 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=69
+  right_hip_roll   raw=-0.4220 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=70
+  left_hip_roll    raw= 0.4330 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=102 obs_norm=15.413 action_abs_max=7.609 target_abs_max=0.989 current_abs_max=0.941
+  obs: ref_pos=1.699, ref_vel=0.238, anchor_ori=1.414, gyro=0.926, joint_pos=1.778, joint_vel=0.898, last_action=15.093
+  action: left_hip_pitch=-7.609, left_knee=+7.372, right_ankle=-7.073, right_knee=+6.022, right_hip_pitch=+3.094
+  target-current: right_ankle=-0.299, right_hip_roll=-0.145, neck_pitch=-0.080, left_ankle=-0.070, right_knee=-0.063
+  current-ref: left_hip_pitch=-0.620, left_ankle=+0.535, right_ankle=+0.215, right_hip_yaw=+0.196, head_yaw=+0.130
+  joint_vel: right_hip_roll=+0.690, right_hip_pitch=+0.384, left_hip_roll=-0.307, left_hip_yaw=-0.153, head_roll=+0.153
+[mjlab] frame=152 obs_norm=16.350 action_abs_max=8.515 target_abs_max=1.107 current_abs_max=1.106
+  obs: ref_pos=1.869, ref_vel=0.419, anchor_ori=1.414, gyro=0.564, joint_pos=1.966, joint_vel=1.865, last_action=15.937
+  action: left_hip_pitch=-8.515, left_knee=+7.738, right_knee=+7.085, right_ankle=-6.652, right_hip_pitch=+2.717
+  target-current: right_ankle=-0.288, right_hip_roll=-0.116, left_ankle=-0.103, left_hip_yaw=-0.065, right_hip_yaw=-0.045
+  current-ref: left_hip_pitch=-0.825, left_ankle=+0.496, right_ankle=+0.267, right_hip_yaw=+0.232, left_hip_yaw=+0.181
+  joint_vel: right_ankle=-1.227, right_hip_yaw=-1.074, left_hip_roll=-0.614, head_roll=+0.537, right_knee=-0.307
+[mjlab][clip] frame=202
+  left_hip_pitch   raw=-1.2062 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab] frame=202 obs_norm=16.927 action_abs_max=9.279 target_abs_max=1.202 current_abs_max=1.136
+  obs: ref_pos=2.029, ref_vel=0.416, anchor_ori=1.414, gyro=1.115, joint_pos=2.100, joint_vel=1.871, last_action=16.465
+  action: left_hip_pitch=-9.279, left_knee=+7.801, right_knee=+7.201, right_ankle=-5.805, head_yaw=+3.347
+  target-current: neck_pitch=-0.089, right_hip_yaw=+0.077, left_hip_pitch=-0.066, left_ankle=-0.045, head_roll=-0.034
+  current-ref: left_hip_pitch=-0.783, left_ankle=+0.484, head_pitch=-0.197, right_knee=-0.154, right_hip_yaw=+0.147
+  joint_vel: right_ankle=+1.304, right_hip_yaw=+0.844, left_hip_roll=+0.690, right_knee=-0.614, left_hip_pitch=-0.384
+[mjlab][limit] target
+  NEAR left_hip_pitch   value=-1.2017 limit=[-1.2217,  0.5236]
+[mjlab][clip] frame=203
+  left_hip_pitch   raw=-1.2118 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=204
+  left_hip_pitch   raw=-1.2137 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=205
+  left_hip_pitch   raw=-1.2097 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=206
+  left_hip_pitch   raw=-1.2154 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=207
+  left_hip_pitch   raw=-1.2172 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=208
+  left_hip_pitch   raw=-1.2231 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=209
+  left_hip_pitch   raw=-1.2235 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=210
+  left_hip_pitch   raw=-1.2311 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=211
+  left_hip_pitch   raw=-1.2414 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=212
+  left_hip_pitch   raw=-1.2503 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=213
+  left_hip_pitch   raw=-1.2602 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=214
+  left_hip_pitch   raw=-1.2697 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=215
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=216
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=217
+  left_hip_pitch   raw=-1.2800 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=218
+  left_hip_pitch   raw=-1.2667 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=219
+  left_hip_pitch   raw=-1.2492 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=220
+  left_hip_pitch   raw=-1.2454 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=221
+  left_hip_pitch   raw=-1.2346 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=222
+  left_hip_pitch   raw=-1.2435 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=223
+  left_hip_pitch   raw=-1.2389 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=224
+  left_hip_pitch   raw=-1.2100 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab] frame=252 obs_norm=15.645 action_abs_max=8.870 target_abs_max=1.153 current_abs_max=1.097
+  obs: ref_pos=1.887, ref_vel=1.277, anchor_ori=1.414, gyro=0.922, joint_pos=1.982, joint_vel=1.665, last_action=15.167
+  action: left_hip_pitch=-8.870, right_knee=+7.807, right_ankle=-6.076, left_knee=+5.605, left_ankle=-2.392
+  target-current: left_knee=-0.221, left_ankle=-0.217, left_hip_roll=-0.206, right_hip_roll=+0.102, head_pitch=+0.069
+  current-ref: left_hip_pitch=-0.702, left_ankle=+0.632, head_pitch=-0.268, head_roll=+0.183, right_hip_yaw=+0.163
+  joint_vel: right_ankle=-1.074, right_knee=+0.997, left_hip_roll=-0.537, left_hip_pitch=+0.460, right_hip_yaw=-0.307
+[mjlab][clip] frame=255
+  left_hip_pitch   raw=-1.2023 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=256
+  left_hip_pitch   raw=-1.2040 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=257
+  left_hip_pitch   raw=-1.2071 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=258
+  left_hip_pitch   raw=-1.2145 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab] frame=302 obs_norm=16.006 action_abs_max=8.115 target_abs_max=1.055 current_abs_max=1.083
+  obs: ref_pos=2.163, ref_vel=0.500, anchor_ori=1.414, gyro=0.209, joint_pos=2.146, joint_vel=1.249, last_action=15.590
+  action: right_knee=+8.115, left_hip_pitch=-8.018, right_ankle=-6.515, left_knee=+4.588, head_roll=-3.672
+  target-current: left_knee=-0.427, left_hip_roll=-0.186, left_ankle=-0.163, right_hip_roll=+0.141, left_hip_yaw=+0.094
+  current-ref: left_ankle=+0.724, left_hip_pitch=-0.529, head_yaw=+0.349, left_hip_yaw=-0.163, right_hip_yaw=+0.138
+  joint_vel: left_knee=+0.997, left_hip_pitch=+0.384, left_ankle=-0.307, head_yaw=-0.307, right_knee=+0.307
+[mjlab] frame=352 obs_norm=14.706 action_abs_max=8.066 target_abs_max=1.049 current_abs_max=1.148
+  obs: ref_pos=2.205, ref_vel=0.215, anchor_ori=1.414, gyro=0.009, joint_pos=2.040, joint_vel=0.109, last_action=14.324
+  action: right_knee=+8.066, left_hip_pitch=-6.312, right_ankle=-5.594, left_knee=+4.923, head_roll=-3.400
+  target-current: left_knee=-0.508, left_hip_roll=-0.258, right_hip_roll=+0.151, left_ankle=-0.062, head_roll=-0.032
+  current-ref: left_ankle=+0.434, head_yaw=+0.352, left_hip_pitch=-0.241, head_roll=+0.193, right_hip_yaw=+0.176
+  joint_vel: left_hip_pitch=-0.077, right_ankle=-0.077, left_hip_yaw=+0.000, left_hip_roll=+0.000, left_knee=+0.000
+Interrupted
+Stopped
+[mjlab] logging to /home/lxkj/Open_Duck_Mini_Runtime/scripts/logs/test_run.log
+[mjlab] startup
+  policy: sway_t2_full.onnx
+  motion: A2_-_Sway_t2_stageii.npz
+  control_freq: 50 Hz
+  action_gain: 1.0
+  max_target_step: 0.08
+  safety_clip: True, margin: 0.02
+  action order / scale / logical limits:
+    left_hip_yaw     scale=0.130 limit=[-0.524, 0.524]
+    left_hip_roll    scale=0.130 limit=[-0.436, 0.436]
+    left_hip_pitch   scale=0.130 limit=[-1.222, 0.524]
+    left_knee        scale=0.130 limit=[-1.571, 1.571]
+    left_ankle       scale=0.130 limit=[-1.571, 1.571]
+    neck_pitch       scale=0.100 limit=[-0.349, 1.134]
+    head_pitch       scale=0.100 limit=[-0.785, 0.785]
+    head_yaw         scale=0.100 limit=[-2.793, 2.793]
+    head_roll        scale=0.100 limit=[-0.524, 0.524]
+    right_hip_yaw    scale=0.130 limit=[-0.524, 0.524]
+    right_hip_roll   scale=0.130 limit=[-0.436, 0.436]
+    right_hip_pitch  scale=0.130 limit=[-0.524, 1.222]
+    right_knee       scale=0.130 limit=[-1.571, 1.571]
+    right_ankle      scale=0.130 limit=[-1.571, 1.571]
+turn on : low KPS set
+turn on : target pos set
+turn on : high kps
+Starting mjlab tracking runtime
+motion frames: 798, fps: 50.0
+[mjlab][clip] frame=0
+  right_hip_roll   raw=-0.4929 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=0 obs_norm=14.379 action_abs_max=5.580 target_abs_max=0.725 current_abs_max=0.419
+  obs: ref_pos=0.577, ref_vel=14.285, anchor_ori=1.414, gyro=0.047, joint_pos=0.576, joint_vel=0.217, last_action=0.000
+  action: left_hip_pitch=-5.580, left_knee=+4.488, right_knee=+4.259, head_pitch=+4.174, right_hip_roll=-3.792
+  target-current: left_hip_pitch=-0.647, left_knee=+0.600, head_pitch=+0.486, right_knee=+0.410, left_hip_yaw=-0.380
+  current-ref: head_pitch=-0.071, head_yaw=-0.023, head_roll=-0.013, left_hip_yaw=-0.010, left_ankle=+0.010
+  joint_vel: head_pitch=+0.153, left_knee=-0.077, neck_pitch=+0.077, head_yaw=+0.077, head_roll=+0.077
+[mjlab][clip] frame=43
+  left_hip_roll    raw= 0.4185 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=44
+  left_hip_roll    raw= 0.4218 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=50 obs_norm=15.571 action_abs_max=8.021 target_abs_max=0.994 current_abs_max=1.014
+  obs: ref_pos=1.761, ref_vel=0.221, anchor_ori=1.414, gyro=0.651, joint_pos=1.997, joint_vel=1.893, last_action=15.143
+  action: left_hip_pitch=-8.021, right_knee=+6.774, left_knee=+4.406, neck_pitch=-3.215, left_ankle=-2.947
+  target-current: right_hip_yaw=-0.152, neck_pitch=-0.140, left_knee=-0.131, left_ankle=-0.112, right_ankle=+0.097
+  current-ref: left_hip_pitch=-0.686, left_ankle=+0.571, right_hip_yaw=+0.462, right_hip_pitch=+0.191, head_yaw=+0.175
+  joint_vel: left_hip_roll=+1.074, left_hip_pitch=+1.074, left_ankle=-0.844, right_ankle=+0.384, left_knee=-0.307
+[mjlab][clip] frame=81
+  left_hip_roll    raw= 0.4393 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=82
+  left_hip_roll    raw= 0.4657 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=83
+  left_hip_roll    raw= 0.4565 clipped= 0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=96
+  left_hip_roll    raw= 0.4171 clipped= 0.4163 safe=[-0.4163,  0.4163]
+  right_hip_roll   raw=-0.4264 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=97
+  right_hip_roll   raw=-0.4466 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=100 obs_norm=15.111 action_abs_max=10.138 target_abs_max=1.186 current_abs_max=1.024
+  obs: ref_pos=1.696, ref_vel=0.145, anchor_ori=1.414, gyro=1.696, joint_pos=1.838, joint_vel=3.864, last_action=14.222
+  action: right_knee=+10.138, right_ankle=-7.044, left_knee=+4.798, right_hip_pitch=+3.872, left_hip_pitch=-3.583
+  target-current: left_knee=-0.298, right_knee=+0.296, left_hip_pitch=+0.271, head_pitch=-0.258, left_ankle=+0.246
+  current-ref: left_hip_pitch=-0.713, left_ankle=+0.652, right_ankle=+0.274, right_hip_yaw=+0.212, left_hip_roll=+0.170
+  joint_vel: left_ankle=+2.225, right_hip_pitch=-1.765, right_knee=+1.765, left_knee=-1.227, right_hip_roll=-0.844
+[mjlab][clip] frame=129
+  left_hip_pitch   raw=-1.2416 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=130
+  left_hip_pitch   raw=-1.2748 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=131
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=132
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=133
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=134
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=135
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=136
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=137
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=138
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=139
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=140
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  neck_pitch       raw=-0.3298 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=141
+  left_hip_pitch   raw=-1.2574 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  neck_pitch       raw=-0.3302 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=142
+  left_hip_pitch   raw=-1.2292 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=143
+  left_hip_pitch   raw=-1.2166 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=144
+  left_hip_pitch   raw=-1.2260 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=145
+  left_hip_pitch   raw=-1.2581 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=146
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=147
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=148
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=149
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=150
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab] frame=150 obs_norm=17.337 action_abs_max=10.867 target_abs_max=1.202 current_abs_max=1.224
+  obs: ref_pos=1.867, ref_vel=0.438, anchor_ori=1.414, gyro=0.533, joint_pos=2.108, joint_vel=2.353, last_action=16.871
+  action: left_hip_pitch=-10.867, right_ankle=-7.362, right_knee=+7.157, left_knee=+6.678, neck_pitch=-2.844
+  target-current: right_hip_pitch=+0.130, left_hip_roll=+0.123, right_hip_yaw=+0.085, right_knee=-0.077, right_hip_roll=-0.070
+  current-ref: left_hip_pitch=-0.940, left_ankle=+0.644, right_hip_pitch=-0.382, left_hip_roll=-0.187, right_hip_yaw=+0.170
+  joint_vel: left_hip_roll=+1.534, right_hip_roll=-1.151, right_hip_pitch=+0.767, right_hip_yaw=+0.690, left_hip_yaw=-0.614
+[mjlab][limit] current
+  LOW  left_hip_pitch   value=-1.2240 limit=[-1.2217,  0.5236]
+[mjlab][limit] target
+  NEAR left_hip_pitch   value=-1.2017 limit=[-1.2217,  0.5236]
+[mjlab][clip] frame=151
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=152
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=153
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  neck_pitch       raw=-0.3329 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=154
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  neck_pitch       raw=-0.3392 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=155
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  neck_pitch       raw=-0.3442 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=156
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  neck_pitch       raw=-0.3418 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=157
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  neck_pitch       raw=-0.3334 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=158
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=159
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=160
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=161
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=162
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=163
+  left_hip_pitch   raw=-1.2642 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=164
+  left_hip_pitch   raw=-1.2235 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=167
+  neck_pitch       raw=-0.3763 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=168
+  neck_pitch       raw=-0.3929 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=169
+  neck_pitch       raw=-0.4006 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=170
+  neck_pitch       raw=-0.3751 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=171
+  neck_pitch       raw=-0.3302 clipped=-0.3291 safe=[-0.3291,  1.1145]
+[mjlab][clip] frame=176
+  right_hip_roll   raw=-0.4470 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=177
+  right_hip_roll   raw=-0.4921 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=192
+  right_hip_roll   raw=-0.4601 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=200 obs_norm=15.092 action_abs_max=7.296 target_abs_max=0.948 current_abs_max=0.967
+  obs: ref_pos=2.036, ref_vel=0.400, anchor_ori=1.414, gyro=0.770, joint_pos=1.771, joint_vel=4.556, last_action=14.035
+  action: right_knee=+7.296, left_knee=+7.234, left_hip_pitch=-6.451, right_ankle=-5.108, right_hip_pitch=+3.528
+  target-current: right_hip_yaw=-0.242, left_hip_roll=-0.230, right_hip_roll=+0.121, left_ankle=-0.112, head_yaw=+0.081
+  current-ref: left_hip_pitch=-0.442, left_ankle=+0.436, right_hip_yaw=+0.405, right_ankle=+0.337, right_knee=-0.237
+  joint_vel: right_ankle=+2.915, right_hip_roll=+2.455, left_hip_roll=-1.534, left_knee=-1.304, left_ankle=-0.921
+[mjlab][clip] frame=205
+  right_hip_roll   raw=-0.4547 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=217
+  right_hip_roll   raw=-0.4234 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=250 obs_norm=15.899 action_abs_max=8.246 target_abs_max=1.042 current_abs_max=0.847
+  obs: ref_pos=1.858, ref_vel=1.019, anchor_ori=1.414, gyro=0.462, joint_pos=1.561, joint_vel=3.932, last_action=15.105
+  action: right_knee=+8.246, left_hip_pitch=-7.731, left_knee=+6.483, right_ankle=-5.742, right_hip_roll=-3.335
+  target-current: left_hip_pitch=-0.287, right_hip_roll=-0.257, left_ankle=+0.255, right_ankle=-0.208, right_knee=+0.195
+  current-ref: left_ankle=+0.450, left_hip_pitch=-0.320, right_hip_yaw=+0.241, right_ankle=+0.228, neck_pitch=+0.149
+  joint_vel: left_ankle=+2.225, right_hip_yaw=-1.841, left_hip_pitch=-1.458, left_hip_roll=-1.227, right_hip_roll=+1.074
+[mjlab][clip] frame=265
+  left_hip_pitch   raw=-1.2200 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=266
+  left_hip_pitch   raw=-1.2607 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=267
+  left_hip_yaw     raw= 0.5096 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=268
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=269
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  right_hip_roll   raw=-0.4235 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=270
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  right_hip_roll   raw=-0.4963 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=271
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_roll    raw= 0.4448 clipped= 0.4163 safe=[-0.4163,  0.4163]
+  right_hip_roll   raw=-0.4963 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=272
+  right_hip_roll   raw=-0.4963 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=276
+  head_roll        raw=-0.5368 clipped=-0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=285
+  left_hip_yaw     raw= 0.5301 clipped= 0.5036 safe=[-0.5036,  0.5036]
+[mjlab][clip] frame=286
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2688 clipped=-1.2017 safe=[-1.2017,  0.5036]
+[mjlab][clip] frame=287
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  right_hip_roll   raw=-0.4942 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=288
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2817 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  right_hip_roll   raw=-0.4963 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=289
+  left_hip_yaw     raw= 0.5836 clipped= 0.5036 safe=[-0.5036,  0.5036]
+  left_hip_pitch   raw=-1.2472 clipped=-1.2017 safe=[-1.2017,  0.5036]
+  right_hip_roll   raw=-0.4963 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab][clip] frame=290
+  right_hip_roll   raw=-0.4540 clipped=-0.4163 safe=[-0.4163,  0.4163]
+[mjlab] frame=300 obs_norm=16.570 action_abs_max=8.739 target_abs_max=1.136 current_abs_max=1.108
+  obs: ref_pos=2.166, ref_vel=0.557, anchor_ori=1.414, gyro=1.056, joint_pos=1.916, joint_vel=5.490, last_action=15.252
+  action: right_knee=+8.739, left_knee=+7.329, left_hip_pitch=-5.506, right_hip_pitch=+4.410, head_pitch=+4.048
+  target-current: left_hip_roll=-0.239, head_pitch=+0.162, neck_pitch=-0.125, left_hip_pitch=+0.124, left_hip_yaw=+0.074
+  current-ref: right_ankle=+0.740, left_ankle=+0.659, neck_pitch=+0.509, left_hip_pitch=-0.285, right_hip_pitch=+0.242
+  joint_vel: left_hip_pitch=+2.915, left_ankle=-2.762, left_hip_roll=-2.608, right_ankle=+1.458, right_hip_pitch=+1.381
+Interrupted
+Stopped
