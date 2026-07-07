@@ -229,6 +229,9 @@ class MjlabRLWalk:
         max_target_step=0.08,
         action_gain=1.0,
         initial_pose="motion_start",
+        start_frame=0,
+        action_clip=None,
+        joint_vel_scale=1.0,
         safety_clip=True,
         joint_limit_margin=0.02,
         debug_interval_s=1.0,
@@ -242,6 +245,9 @@ class MjlabRLWalk:
         self.max_target_step = max_target_step
         self.action_gain = action_gain
         self.initial_pose = initial_pose
+        self.start_frame = start_frame
+        self.action_clip = action_clip
+        self.joint_vel_scale = joint_vel_scale
         self.safety_clip = safety_clip
         self.joint_limit_margin = joint_limit_margin
         self.debug_interval_steps = max(1, int(round(debug_interval_s * control_freq)))
@@ -258,7 +264,7 @@ class MjlabRLWalk:
         self.hwi = None if dry_run else HWI(self.duck_config, serial_port)
         self.pid = pid
         self.last_action = np.zeros(ACTION_DIM, dtype=np.float32)
-        self.motion_i = 0
+        self.motion_i = start_frame
 
         self.action_scale = np.array(
             [ACTION_SCALE_BY_JOINT[name] for name in ACTION_ORDER_14],
@@ -295,7 +301,10 @@ class MjlabRLWalk:
         print(f"  policy: {onnx_model_path}")
         print(f"  motion: {motion_path}")
         print(f"  control_freq: {self.control_freq} Hz")
+        print(f"  start_frame: {self.start_frame % self.motion.num_frames}")
         print(f"  action_gain: {self.action_gain}")
+        print(f"  action_clip: {self.action_clip}")
+        print(f"  joint_vel_scale: {self.joint_vel_scale}")
         print(f"  max_target_step: {self.max_target_step}")
         print(f"  safety_clip: {self.safety_clip}, margin: {self.joint_limit_margin}")
         print("  action order / scale / logical limits:")
@@ -322,7 +331,7 @@ class MjlabRLWalk:
         if self.initial_pose == "zero":
             values = np.zeros(ACTION_DIM, dtype=np.float32)
         elif self.initial_pose == "motion_start":
-            joint_pos_16, _, _ = self.motion.frame(0)
+            joint_pos_16, _, _ = self.motion.frame(self.motion_i)
             values_by_name = dict(zip(JOINT_ORDER_16, joint_pos_16))
             values = np.array(
                 [values_by_name[name] for name in ACTION_ORDER_14],
@@ -353,7 +362,7 @@ class MjlabRLWalk:
             if pos_14 is None or vel_14 is None:
                 return None, None
             pos_14 = pos_14.astype(np.float32)
-            vel_14 = vel_14.astype(np.float32)
+            vel_14 = vel_14.astype(np.float32) * self.joint_vel_scale
 
         pos_by_name = dict(zip(ACTION_ORDER_14, pos_14))
         vel_by_name = dict(zip(ACTION_ORDER_14, vel_14))
@@ -417,6 +426,22 @@ class MjlabRLWalk:
         order = np.argsort(-np.abs(values))[:top_k]
         parts = [f"{names[i]}={values[i]:+.3f}" for i in order]
         return f"{label}: " + ", ".join(parts)
+
+    def _process_action(self, action):
+        action = np.asarray(action, dtype=np.float32)
+        if action.shape != (ACTION_DIM,):
+            raise ValueError(f"action shape {action.shape} != ({ACTION_DIM},)")
+        if self.action_clip is None:
+            return action
+        clipped = np.clip(action, -self.action_clip, self.action_clip)
+        if self.debug and np.any(np.abs(clipped - action) > 1e-6):
+            print(f"[mjlab][action_clip] frame={self.motion_i % self.motion.num_frames}")
+            for i in np.where(np.abs(clipped - action) > 1e-6)[0]:
+                print(
+                    f"  {ACTION_ORDER_14[i]:16s} raw={action[i]: .4f} "
+                    f"clipped={clipped[i]: .4f}"
+                )
+        return clipped.astype(np.float32)
 
     def _targets_from_action(self, action):
         action = np.asarray(action, dtype=np.float32)
@@ -492,7 +517,8 @@ class MjlabRLWalk:
         obs = self.get_obs()
         if obs is None:
             return False
-        action = self.policy.infer(obs).astype(np.float32)
+        raw_action = self.policy.infer(obs).astype(np.float32)
+        action = self._process_action(raw_action)
         target = self._targets_from_action(action)
 
         if self.action_filter is not None:
@@ -542,6 +568,24 @@ def main():
     parser.add_argument("--cutoff_frequency", type=float, default=None)
     parser.add_argument("--max_target_step", type=float, default=0.08)
     parser.add_argument("--action_gain", type=float, default=1.0)
+    parser.add_argument(
+        "--start_frame",
+        type=int,
+        default=0,
+        help="Reference motion frame used for startup and initial pose.",
+    )
+    parser.add_argument(
+        "--action_clip",
+        type=float,
+        default=None,
+        help="Optional symmetric clip applied to raw policy actions before targets.",
+    )
+    parser.add_argument(
+        "--joint_vel_scale",
+        type=float,
+        default=1.0,
+        help="Scale applied to hardware joint velocities before building observations.",
+    )
     parser.add_argument(
         "--no_safety_clip",
         action="store_true",
@@ -598,6 +642,9 @@ def main():
         max_target_step=args.max_target_step,
         action_gain=args.action_gain,
         initial_pose=args.initial_pose,
+        start_frame=args.start_frame,
+        action_clip=args.action_clip,
+        joint_vel_scale=args.joint_vel_scale,
         safety_clip=not args.no_safety_clip,
         joint_limit_margin=args.joint_limit_margin,
         debug_interval_s=args.debug_interval_s,
