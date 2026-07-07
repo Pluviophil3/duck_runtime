@@ -1,0 +1,54 @@
+2025-06-12 08:16:58,512 - py-xiaozhi - INFO - ==== 启动小智机器人 ====
+2025-06-12 08:16:58,529 - py-xiaozhi - WARNING - [AUDIO] 无法设置音量，尝试其他控制...
+2025-06-12 08:16:58,545 - py-xiaozhi - ERROR - [AUDIO] 音量设置失败，音频功能可能受限
+2025-06-12 08:16:58,546 - py-xiaozhi - INFO - d_coefficient: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+2025-06-12 08:16:58,546 - py-xiaozhi - INFO - turn on : high kps
+2025-06-12 08:16:58,546 - py-xiaozhi - WARNING - imu_calib_data.pkl not found
+2025-06-12 08:16:58,546 - py-xiaozhi - WARNING - Imu is running uncalibrated
+2025-06-12 08:16:58,546 - py-xiaozhi - INFO - [Joystick] 正在初始化...
+2025-06-12 08:16:58,737 - py-xiaozhi - INFO - [Joystick] 已连接: Xbox Series X Controller
+2025-06-12 08:16:58,737 - py-xiaozhi - INFO - [Poly ref data] Processing ...
+2025-06-12 08:16:58,737 - py-xiaozhi - INFO - [Poly ref data] Done processing
+2025-06-12 08:16:58,738 - py-xiaozhi - INFO - Done instantiating RLWalk
+2025-06-12 08:16:58,738 - py-xiaozhi - INFO - =========================
+2025-06-12 08:16:58,738 - py-xiaozhi - INFO - {"mqtt": {"endpoint": "mqtt.xiaozhi.me", "client_id": "GID_test@@@e4_5f_01_8a_a5_53@@@", "username": "eyJpcCI6IjExOS4zOS40My4yNDcifQ==", "password": "L+x28CWhvJAhvBnop1ywbapXxHwgwnzdVYi8qrsXV5E=", "publish_topic": "device-server", "subscribe_topic": "null"}, "websocket": {"url": "wss://api.tenclass.net/xiaozhi/v1/", "token": "test-token"}, "server_time": {"timestamp": 1749712102872, "timezone_offset": 480}, "firmware": {"version": "0.9.9", "url": ""}, "activation": {"code": "842991", "message": "xiaozhi.me\n842991", "challenge": "c51c2a8d-7dd3-4014-8084-78b52201c94e"}}
+2025-06-12 08:16:58,738 - py-xiaozhi - INFO - {"endpoint": "mqtt.xiaozhi.me", "client_id": "GID_test@@@e4_5f_01_8a_a5_53@@@", "username": "eyJpcCI6IjExOS4zOS40My4yNDcifQ==", "password": "L+x28CWhvJAhvBnop1ywbapXxHwgwnzdVYi8qrsXV5E=", "publish_topic": "device-server", "subscribe_topic": "null"}
+2025-06-12 08:16:58,738 - py-xiaozhi - INFO - [MQTT] 解码后的用户名: {"ip":"119.39.43.247"}
+2025-06-12 08:16:58,739 - py-xiaozhi - INFO - [MQTT] 尝试连接 mqtt.xiaozhi.me:8883 (TLS) - 尝试 1/5
+2025-06-12 08:16:58,965 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:16:58,970 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:00,146 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:00,146 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:01,299 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:01,300 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:02,441 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:02,442 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:03,586 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:03,587 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:04,780 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:04,783 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:05,911 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:05,912 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:07,063 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:07,065 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:08,234 - py-xiaozhi - INFO - [MQTT] 连接成功 (RC: 0)
+2025-06-12 08:17:08,235 - py-xiaozhi - WARNING - [MQTT] 断开连接 (RC: 7)
+2025-06-12 08:17:08,953 - py-xiaozhi - WARNING - [MQTT] TLS 连接超时，尝试回退到非加密端口
+2025-06-12 08:17:09,236 - py-xiaozhi - INFO - [MQTT] 尝试回退到非加密端口 1883...
+2025-06-12 08:17:09,243 - py-xiaozhi - INFO - [MQTT] 尝试连接 mqtt.xiaozhi.me:1883 - 尝试 1/5
+2025-06-12 08:17:14,263 - py-xiaozhi - ERROR - [MQTT] 非加密连接失败: timed out
+2025-06-12 08:17:14,264 - py-xiaozhi - INFO - [MQTT] 2秒后重试...
+2025-06-12 08:17:16,264 - py-xiaozhi - INFO - [MQTT] 尝试连接 mqtt.xiaozhi.me:1883 - 尝试 2/5
+2025-06-12 08:17:21,282 - py-xiaozhi - ERROR - [MQTT] 非加密连接失败: timed out
+2025-06-12 08:17:21,283 - py-xiaozhi - INFO - [MQTT] 4秒后重试...
+2025-06-12 08:17:25,284 - py-xiaozhi - INFO - [MQTT] 尝试连接 mqtt.xiaozhi.me:1883 - 尝试 3/5
+2025-06-12 08:17:30,306 - py-xiaozhi - ERROR - [MQTT] 非加密连接失败: timed out
+2025-06-12 08:17:30,307 - py-xiaozhi - INFO - [MQTT] 8秒后重试...
+2025-06-12 08:17:38,307 - py-xiaozhi - INFO - [MQTT] 尝试连接 mqtt.xiaozhi.me:1883 - 尝试 4/5
+2025-06-12 08:17:43,355 - py-xiaozhi - ERROR - [MQTT] 非加密连接失败: timed out
+2025-06-12 08:17:43,356 - py-xiaozhi - INFO - [MQTT] 16秒后重试...
+2025-06-12 08:17:59,357 - py-xiaozhi - INFO - [MQTT] 尝试连接 mqtt.xiaozhi.me:1883 - 尝试 5/5
+2025-06-12 08:18:04,372 - py-xiaozhi - ERROR - [MQTT] 非加密连接失败: timed out
+2025-06-12 08:18:04,373 - py-xiaozhi - ERROR - [MQTT] 达到最大重试次数，连接失败
+2025-06-12 08:18:04,374 - py-xiaozhi - ERROR - 程序异常: timed out
+2025-06-12 08:18:04,417 - py-xiaozhi - INFO - 程序已退出

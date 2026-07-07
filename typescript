@@ -1,0 +1,590 @@
+Script started on 2025-06-24 13:55:51+01:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="179" LINES="52"]
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime $[00m scris[Kpts
+[?2004lbash: scripts: command not found
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime $[00m ls
+[?2004lcam_test.py   duck_config.json  [0m[01;34mmini_bdx_runtime[0m            [01;34mpypot-master[0m    README.md            [01;34mscripts[0m    TODO.md     [01;34mxiaozhi[0m
+checklist.md  i2samp.py         open-duck-mini.service.txt  pyproject.toml  run_duck_on_boot.sh  setup.cfg  typescript  xiaozhi.log
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime $[00m scr[K[K[Kcd scripts/
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ls
+[?2004l[0m[00;36m8378.wav[0m                     configure_motor.py                          imu_calib_data.pkl  plot_recorded_data.py        README.md            turn_off.py
+antennas_controller_test.py  df852d9b-5530-426e-99e1-c5e7456f9f28.table  imu_client.py       polynomial_coefficients.pkl  record_data.py       turn_on.py
+[01;35maze.jpg[0m                      duck                                        imu_server.py       [01;34m__pycache__[0m                  requirements.txt     v2_rl_walk_mujoco.py
+BEST_WALK_ONNX_2.onnx        fc_test.py                                  led2812_flow.py     py-xiaozhi2.py               robot_saved_obs.pkl  [00;90mv2_rl_walk_mujoco.py.old[0m
+calibrate_imu.py             find_soft_offsets.py                        micro_test.py       py-xiaozhi.py                sounds.py            [01;34mvosk-model-small-cn-0.22[0m
+cam_test.py                  get_ota_version.py                          motor_xiugai.py     py-xiaozhi.py.save           test2.py             xiaozhi-prompt.txt
+check_voltage.py             head_puppet.py                              [00;36moutput.wav[0m          py-xiaozhi_v2.py             [00;36mtest.wav[0m
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m cd Opem[Kn_d[KDuc[K[K[K[K[K[K[K[K[K[K[Kls
+[?2004l[0m[00;36m8378.wav[0m                     configure_motor.py                          imu_calib_data.pkl  plot_recorded_data.py        README.md            turn_off.py
+antennas_controller_test.py  df852d9b-5530-426e-99e1-c5e7456f9f28.table  imu_client.py       polynomial_coefficients.pkl  record_data.py       turn_on.py
+[01;35maze.jpg[0m                      duck                                        imu_server.py       [01;34m__pycache__[0m                  requirements.txt     v2_rl_walk_mujoco.py
+BEST_WALK_ONNX_2.onnx        fc_test.py                                  led2812_flow.py     py-xiaozhi2.py               robot_saved_obs.pkl  [00;90mv2_rl_walk_mujoco.py.old[0m
+calibrate_imu.py             find_soft_offsets.py                        micro_test.py       py-xiaozhi.py                sounds.py            [01;34mvosk-model-small-cn-0.22[0m
+cam_test.py                  get_ota_version.py                          motor_xiugai.py     py-xiaozhi.py.save           test2.py             xiaozhi-prompt.txt
+check_voltage.py             head_puppet.py                              [00;36moutput.wav[0m          py-xiaozhi_v2.py             [00;36mtest.wav[0m
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ^C[?2004l[?2004h[?2004l
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m cd
+[?2004l[?2004h]0;lxkj@raspberrypi: ~[01;32mlxkj@raspberrypi[00m:[01;34m~ $[00m ls
+[?2004l[0m[01;35maze.jpg[0m  [01;34mBookshelf[0m  [01;34mDesktop[0m  [01;34mDocuments[0m  [01;34mDownloads[0m  duck_config.json  [01;34mMusic[0m  [01;34mOpen_Duck_Mini[0m  [01;34mOpen_Duck_Mini_Runtime[0m  [01;34mPictures[0m  [01;34mPublic[0m  [01;34mrepos[0m  [01;34mTemplates[0m  [01;34mVideos[0m
+[?2004h]0;lxkj@raspberrypi: ~[01;32mlxkj@raspberrypi[00m:[01;34m~ $[00m cd Open_Duck_Mini
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini $[00m ls
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini $[00m ls
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini $[00m cd
+[?2004l[?2004h]0;lxkj@raspberrypi: ~[01;32mlxkj@raspberrypi[00m:[01;34m~ $[00m cd Open_Duck_Mini_Runtime/
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime $[00m ls
+[?2004lcam_test.py   duck_config.json  [0m[01;34mmini_bdx_runtime[0m            [01;34mpypot-master[0m    README.md            [01;34mscripts[0m    TODO.md     [01;34mxiaozhi[0m
+checklist.md  i2samp.py         open-duck-mini.service.txt  pyproject.toml  run_duck_on_boot.sh  setup.cfg  typescript  xiaozhi.log
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime $[00m cd c[Kscrs[Kipts/
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ls
+[?2004l[0m[00;36m8378.wav[0m                     configure_motor.py                          imu_calib_data.pkl  plot_recorded_data.py        README.md            turn_off.py
+antennas_controller_test.py  df852d9b-5530-426e-99e1-c5e7456f9f28.table  imu_client.py       polynomial_coefficients.pkl  record_data.py       turn_on.py
+[01;35maze.jpg[0m                      duck                                        imu_server.py       [01;34m__pycache__[0m                  requirements.txt     v2_rl_walk_mujoco.py
+BEST_WALK_ONNX_2.onnx        fc_test.py                                  led2812_flow.py     py-xiaozhi2.py               robot_saved_obs.pkl  [00;90mv2_rl_walk_mujoco.py.old[0m
+calibrate_imu.py             find_soft_offsets.py                        micro_test.py       py-xiaozhi.py                sounds.py            [01;34mvosk-model-small-cn-0.22[0m
+cam_test.py                  get_ota_version.py                          motor_xiugai.py     py-xiaozhi.py.save           test2.py             xiaozhi-prompt.txt
+check_voltage.py             head_puppet.py                              [00;36moutput.wav[0m          py-xiaozhi_v2.py             [00;36mtest.wav[0m
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ls
+[?2004l[0m[00;36m8378.wav[0m                     configure_motor.py                          imu_calib_data.pkl  plot_recorded_data.py        README.md            turn_off.py
+antennas_controller_test.py  df852d9b-5530-426e-99e1-c5e7456f9f28.table  imu_client.py       polynomial_coefficients.pkl  record_data.py       turn_on.py
+[01;35maze.jpg[0m                      duck                                        imu_server.py       [01;34m__pycache__[0m                  requirements.txt     v2_rl_walk_mujoco.py
+BEST_WALK_ONNX_2.onnx        fc_test.py                                  led2812_flow.py     py-xiaozhi2.py               robot_saved_obs.pkl  [00;90mv2_rl_walk_mujoco.py.old[0m
+calibrate_imu.py             find_soft_offsets.py                        micro_test.py       py-xiaozhi.py                sounds.py            [01;34mvosk-model-small-cn-0.22[0m
+cam_test.py                  get_ota_version.py                          motor_xiugai.py     py-xiaozhi.py.save           test2.py             xiaozhi-prompt.txt
+check_voltage.py             head_puppet.py                              [00;36moutput.wav[0m          py-xiaozhi_v2.py             [00;36mtest.wav[0m
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ls
+[?2004l[0m[00;36m8378.wav[0m                     configure_motor.py                          imu_calib_data.pkl  plot_recorded_data.py        README.md            turn_off.py
+antennas_controller_test.py  df852d9b-5530-426e-99e1-c5e7456f9f28.table  imu_client.py       polynomial_coefficients.pkl  record_data.py       turn_on.py
+[01;35maze.jpg[0m                      duck                                        imu_server.py       [01;34m__pycache__[0m                  requirements.txt     v2_rl_walk_mujoco.py
+BEST_WALK_ONNX_2.onnx        fc_test.py                                  led2812_flow.py     py-xiaozhi2.py               robot_saved_obs.pkl  [00;90mv2_rl_walk_mujoco.py.old[0m
+calibrate_imu.py             find_soft_offsets.py                        micro_test.py       py-xiaozhi.py                sounds.py            [01;34mvosk-model-small-cn-0.22[0m
+cam_test.py                  get_ota_version.py                          motor_xiugai.py     py-xiaozhi.py.save           test2.py             xiaozhi-prompt.txt
+check_voltage.py             head_puppet.py                              [00;36moutput.wav[0m          py-xiaozhi_v2.py             [00;36mtest.wav[0m
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ls
+[?2004l[0m[00;36m8378.wav[0m                     configure_motor.py                          imu_calib_data.pkl  plot_recorded_data.py        README.md            turn_off.py
+antennas_controller_test.py  df852d9b-5530-426e-99e1-c5e7456f9f28.table  imu_client.py       polynomial_coefficients.pkl  record_data.py       turn_on.py
+[01;35maze.jpg[0m                      duck                                        imu_server.py       [01;34m__pycache__[0m                  requirements.txt     v2_rl_walk_mujoco.py
+BEST_WALK_ONNX_2.onnx        fc_test.py                                  led2812_flow.py     py-xiaozhi2.py               robot_saved_obs.pkl  [00;90mv2_rl_walk_mujoco.py.old[0m
+calibrate_imu.py             find_soft_offsets.py                        micro_test.py       py-xiaozhi.py                sounds.py            [01;34mvosk-model-small-cn-0.22[0m
+cam_test.py                  get_ota_version.py                          motor_xiugai.py     py-xiaozhi.py.save           test2.py             xbox_controller_serial.py
+check_voltage.py             head_puppet.py                              [00;36moutput.wav[0m          py-xiaozhi_v2.py             [00;36mtest.wav[0m             xiaozhi-prompt.txt
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ls
+[?2004l[0m[00;36m8378.wav[0m                     configure_motor.py                          imu_calib_data.pkl  plot_recorded_data.py        README.md            turn_off.py
+antennas_controller_test.py  df852d9b-5530-426e-99e1-c5e7456f9f28.table  imu_client.py       polynomial_coefficients.pkl  record_data.py       turn_on.py
+[01;35maze.jpg[0m                      duck                                        imu_server.py       [01;34m__pycache__[0m                  requirements.txt     v2_rl_walk_mujoco.py
+BEST_WALK_ONNX_2.onnx        fc_test.py                                  led2812_flow.py     py-xiaozhi2.py               robot_saved_obs.pkl  [00;90mv2_rl_walk_mujoco.py.old[0m
+calibrate_imu.py             find_soft_offsets.py                        micro_test.py       py-xiaozhi.py                sounds.py            [01;34mvosk-model-small-cn-0.22[0m
+cam_test.py                  get_ota_version.py                          motor_xiugai.py     py-xiaozhi.py.save           test2.py             xbox_controller_serial.py
+check_voltage.py             head_puppet.py                              [00;36moutput.wav[0m          py-xiaozhi_v2.py             [00;36mtest.wav[0m             xiaozhi-prompt.txt
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m python xbos[Kx_controller_serial.py 
+[?2004lTraceback (most recent call last):
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 7, in <module>
+    from evdev import InputDevice, categorize, ecodes
+ModuleNotFoundError: No module named 'evdev'
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo apt-get install python3-dev libinput-dev libevdev-dev[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo apt-get install python3-dev libinput-dev libevdev-dev
+[?2004lReading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 0%Reading state information... Done
+python3-dev is already the newest version (3.11.2-1+b1).
+python3-dev set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libc++1-16 libc++abi1-16 libcamera0.3 libunwind-16 libwlroots12
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  gir1.2-gudev-1.0 libblkid-dev libffi-dev libglib2.0-dev libglib2.0-dev-bin libgudev-1.0-dev libmount-dev libmtdev-dev libpcre2-32-0 libpcre2-dev libpcre2-posix3
+  libselinux1-dev libsepol-dev libudev-dev libwacom-dev uuid-dev
+Suggested packages:
+  libevdev-doc libgirepository1.0-dev libglib2.0-doc libxml2-utils
+The following NEW packages will be installed:
+  gir1.2-gudev-1.0 libblkid-dev libevdev-dev libffi-dev libglib2.0-dev libglib2.0-dev-bin libgudev-1.0-dev libinput-dev libmount-dev libmtdev-dev libpcre2-32-0 libpcre2-dev
+  libpcre2-posix3 libselinux1-dev libsepol-dev libudev-dev libwacom-dev uuid-dev
+0 upgraded, 18 newly installed, 0 to remove and 8 not upgraded.
+Need to get 3,685 kB of archives.
+After this operation, 20.3 MB of additional disk space will be used.
+Do you want to continue? [Y/n] ^C
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ^C[?2004l[?2004h[?2004l
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m sudo apt-get install python3-dev libinput-dev libevdev-dev
+[?2004lReading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 0%Reading state information... Done
+python3-dev is already the newest version (3.11.2-1+b1).
+python3-dev set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libc++1-16 libc++abi1-16 libcamera0.3 libunwind-16 libwlroots12
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  gir1.2-gudev-1.0 libblkid-dev libffi-dev libglib2.0-dev libglib2.0-dev-bin libgudev-1.0-dev libmount-dev libmtdev-dev libpcre2-32-0 libpcre2-dev libpcre2-posix3
+  libselinux1-dev libsepol-dev libudev-dev libwacom-dev uuid-dev
+Suggested packages:
+  libevdev-doc libgirepository1.0-dev libglib2.0-doc libxml2-utils
+The following NEW packages will be installed:
+  gir1.2-gudev-1.0 libblkid-dev libevdev-dev libffi-dev libglib2.0-dev libglib2.0-dev-bin libgudev-1.0-dev libinput-dev libmount-dev libmtdev-dev libpcre2-32-0 libpcre2-dev
+  libpcre2-posix3 libselinux1-dev libsepol-dev libudev-dev libwacom-dev uuid-dev
+0 upgraded, 18 newly installed, 0 to remove and 8 not upgraded.
+Need to get 3,685 kB of archives.
+After this operation, 20.3 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+0% [Working]0% [Working]0% [Connecting to debian.map.fastlydns.net (151.101.90.132)]                                                            Get:1 http://deb.debian.org/debian bookworm/main arm64 gir1.2-gudev-1.0 arm64 237-2 [5,368 B]
+                                                            0% [1 gir1.2-gudev-1.0 2,169 B/5,368 B 40%]                                           1% [Working]            Get:2 http://deb.debian.org/debian bookworm/main arm64 uuid-dev arm64 2.38.1-5+deb12u3 [40.5 kB]
+1% [2 uuid-dev 2,169 B/40.5 kB 5%]                                  3% [Working]            Get:3 http://deb.debian.org/debian bookworm/main arm64 libblkid-dev arm64 2.38.1-5+deb12u3 [183 kB]
+3% [3 libblkid-dev 1,424 B/183 kB 1%]                                     8% [Working]            Get:4 http://deb.debian.org/debian bookworm/main arm64 libevdev-dev arm64 1.13.0+dfsg-1 [51.5 kB]
+8% [4 libevdev-dev 746 B/51.5 kB 1%]                                    11% [Working]             Get:5 http://deb.debian.org/debian bookworm/main arm64 libffi-dev arm64 3.4.4-1 [56.0 kB]
+11% [5 libffi-dev 2,169 B/56.0 kB 4%]                                     13% [Working]             Get:6 http://deb.debian.org/debian bookworm/main arm64 libglib2.0-dev-bin arm64 2.74.6-2+deb12u6 [151 kB]
+13% [6 libglib2.0-dev-bin 1,424 B/151 kB 1%]                                            17% [Working]             Get:7 http://deb.debian.org/debian bookworm/main arm64 libsepol-dev arm64 3.4-2.1 [332 kB]
+17% [7 libsepol-dev 9,968 B/332 kB 3%]                                      26% [Working]             Get:8 http://deb.debian.org/debian bookworm/main arm64 libpcre2-32-0 arm64 10.42-1 [207 kB]
+26% [8 libpcre2-32-0 741 B/207 kB 0%]                                     31% [Working]             Get:9 http://deb.debian.org/debian bookworm/main arm64 libpcre2-posix3 arm64 10.42-1 [55.5 kB]
+31% [9 libpcre2-posix3 745 B/55.5 kB 1%]                                        33% [Working]             Get:10 http://deb.debian.org/debian bookworm/main arm64 libpcre2-dev arm64 10.42-1 [664 kB]
+33% [10 libpcre2-dev 0 B/664 kB 0%]                                   49% [Working]             Get:11 http://deb.debian.org/debian bookworm/main arm64 libselinux1-dev arm64 3.4-1+b6 [159 kB]
+49% [11 libselinux1-dev 742 B/159 kB 0%]                                        54% [Working]             Get:12 http://deb.debian.org/debian bookworm/main arm64 libmount-dev arm64 2.38.1-5+deb12u3 [22.6 kB]
+54% [12 libmount-dev 744 B/22.6 kB 3%]                                      55% [Working]             Get:13 http://deb.debian.org/debian bookworm/main arm64 libglib2.0-dev arm64 2.74.6-2+deb12u6 [1,617 kB]
+55% [13 libglib2.0-dev 0 B/1,617 kB 0%]85% [13 libglib2.0-dev 1,363 kB/1,617 kB 84%]                                             91% [Working]             Get:14 http://deb.debian.org/debian-security bookworm-security/main arm64 libudev-dev arm64 252.38-1~deb12u1 [52.8 kB]
+91% [14 libudev-dev 2,128 B/52.8 kB 4%]                                       94% [Working]             Get:15 http://deb.debian.org/debian bookworm/main arm64 libgudev-1.0-dev arm64 237-2 [28.9 kB]
+94% [15 libgudev-1.0-dev 745 B/28.9 kB 3%]                                          95% [Working]             Get:16 http://deb.debian.org/debian bookworm/main arm64 libmtdev-dev arm64 1.1.6-1 [15.6 kB]
+96% [16 libmtdev-dev 4,272 B/15.6 kB 27%]                                         97% [Working]             Get:17 http://deb.debian.org/debian bookworm/main arm64 libwacom-dev arm64 2.6.0-1 [9,196 B]
+97% [17 libwacom-dev 5,696 B/9,196 B 62%]                                         98% [Working]             Get:18 http://deb.debian.org/debian bookworm/main arm64 libinput-dev arm64 1.22.1-1 [32.7 kB]
+98% [18 libinput-dev 4,096 B/32.7 kB 13%]                                         100% [Working]              Fetched 3,685 kB in 4s (912 kB/s)
+Selecting previously unselected package gir1.2-gudev-1.0:arm64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 154717 files and directories currently installed.)
+Preparing to unpack .../00-gir1.2-gudev-1.0_237-2_arm64.deb ...
+Unpacking gir1.2-gudev-1.0:arm64 (237-2) ...
+Selecting previously unselected package uuid-dev:arm64.
+Preparing to unpack .../01-uuid-dev_2.38.1-5+deb12u3_arm64.deb ...
+Unpacking uuid-dev:arm64 (2.38.1-5+deb12u3) ...
+Selecting previously unselected package libblkid-dev:arm64.
+Preparing to unpack .../02-libblkid-dev_2.38.1-5+deb12u3_arm64.deb ...
+Unpacking libblkid-dev:arm64 (2.38.1-5+deb12u3) ...
+Selecting previously unselected package libevdev-dev:arm64.
+Preparing to unpack .../03-libevdev-dev_1.13.0+dfsg-1_arm64.deb ...
+Unpacking libevdev-dev:arm64 (1.13.0+dfsg-1) ...
+Selecting previously unselected package libffi-dev:arm64.
+Preparing to unpack .../04-libffi-dev_3.4.4-1_arm64.deb ...
+Unpacking libffi-dev:arm64 (3.4.4-1) ...
+Selecting previously unselected package libglib2.0-dev-bin.
+Preparing to unpack .../05-libglib2.0-dev-bin_2.74.6-2+deb12u6_arm64.deb ...
+Unpacking libglib2.0-dev-bin (2.74.6-2+deb12u6) ...
+Selecting previously unselected package libsepol-dev:arm64.
+Preparing to unpack .../06-libsepol-dev_3.4-2.1_arm64.deb ...
+Unpacking libsepol-dev:arm64 (3.4-2.1) ...
+Selecting previously unselected package libpcre2-32-0:arm64.
+Preparing to unpack .../07-libpcre2-32-0_10.42-1_arm64.deb ...
+Unpacking libpcre2-32-0:arm64 (10.42-1) ...
+Selecting previously unselected package libpcre2-posix3:arm64.
+Preparing to unpack .../08-libpcre2-posix3_10.42-1_arm64.deb ...
+Unpacking libpcre2-posix3:arm64 (10.42-1) ...
+Selecting previously unselected package libpcre2-dev:arm64.
+Preparing to unpack .../09-libpcre2-dev_10.42-1_arm64.deb ...
+Unpacking libpcre2-dev:arm64 (10.42-1) ...
+Selecting previously unselected package libselinux1-dev:arm64.
+Preparing to unpack .../10-libselinux1-dev_3.4-1+b6_arm64.deb ...
+Unpacking libselinux1-dev:arm64 (3.4-1+b6) ...
+Selecting previously unselected package libmount-dev:arm64.
+Preparing to unpack .../11-libmount-dev_2.38.1-5+deb12u3_arm64.deb ...
+Unpacking libmount-dev:arm64 (2.38.1-5+deb12u3) ...
+Selecting previously unselected package libglib2.0-dev:arm64.
+Preparing to unpack .../12-libglib2.0-dev_2.74.6-2+deb12u6_arm64.deb ...
+Unpacking libglib2.0-dev:arm64 (2.74.6-2+deb12u6) ...
+Selecting previously unselected package libudev-dev:arm64.
+Preparing to unpack .../13-libudev-dev_252.38-1~deb12u1_arm64.deb ...
+Unpacking libudev-dev:arm64 (252.38-1~deb12u1) ...
+Selecting previously unselected package libgudev-1.0-dev:arm64.
+Preparing to unpack .../14-libgudev-1.0-dev_237-2_arm64.deb ...
+Unpacking libgudev-1.0-dev:arm64 (237-2) ...
+Selecting previously unselected package libmtdev-dev:arm64.
+Preparing to unpack .../15-libmtdev-dev_1.1.6-1_arm64.deb ...
+Unpacking libmtdev-dev:arm64 (1.1.6-1) ...
+Selecting previously unselected package libwacom-dev:arm64.
+Preparing to unpack .../16-libwacom-dev_2.6.0-1_arm64.deb ...
+Unpacking libwacom-dev:arm64 (2.6.0-1) ...
+Selecting previously unselected package libinput-dev:arm64.
+Preparing to unpack .../17-libinput-dev_1.22.1-1_arm64.deb ...
+Unpacking libinput-dev:arm64 (1.22.1-1) ...
+Setting up libglib2.0-dev-bin (2.74.6-2+deb12u6) ...
+Setting up libevdev-dev:arm64 (1.13.0+dfsg-1) ...
+Setting up libmtdev-dev:arm64 (1.1.6-1) ...
+Setting up libffi-dev:arm64 (3.4.4-1) ...
+Setting up libpcre2-32-0:arm64 (10.42-1) ...
+Setting up uuid-dev:arm64 (2.38.1-5+deb12u3) ...
+Setting up gir1.2-gudev-1.0:arm64 (237-2) ...
+Setting up libudev-dev:arm64 (252.38-1~deb12u1) ...
+Setting up libsepol-dev:arm64 (3.4-2.1) ...
+Setting up libpcre2-posix3:arm64 (10.42-1) ...
+Setting up libblkid-dev:arm64 (2.38.1-5+deb12u3) ...
+Setting up libpcre2-dev:arm64 (10.42-1) ...
+Setting up libselinux1-dev:arm64 (3.4-1+b6) ...
+Setting up libmount-dev:arm64 (2.38.1-5+deb12u3) ...
+Setting up libglib2.0-dev:arm64 (2.74.6-2+deb12u6) ...
+Processing triggers for libglib2.0-0:arm64 (2.74.6-2+deb12u6) ...
+Processing triggers for libc-bin (2.36-9+rpt2+deb12u12) ...
+Setting up libgudev-1.0-dev:arm64 (237-2) ...
+Processing triggers for man-db (2.11.2-2) ...
+Setting up libwacom-dev:arm64 (2.6.0-1) ...
+Setting up libinput-dev:arm64 (1.22.1-1) ...
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mpip3 install evdev[27mpip3 install evdev
+[?2004l[1;31merror[0m: [1mexternally-managed-environment[0m
+
+[31m×[0m This environment is externally managed
+[31m╰─>[0m To install Python packages system-wide, try apt install
+[31m   [0m python3-xyz, where xyz is the package you are trying to
+[31m   [0m install.
+[31m   [0m 
+[31m   [0m If you wish to install a non-Debian-packaged Python package,
+[31m   [0m create a virtual environment using python3 -m venv path/to/venv.
+[31m   [0m Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+[31m   [0m sure you have python3-full installed.
+[31m   [0m 
+[31m   [0m For more information visit http://rptl.io/venv
+
+[1;35mnote[0m: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+[1;36mhint[0m: See PEP 668 for the detailed specification.
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo apt-get install python3-evdev[27msudo apt-get install python3-evdev
+[?2004lReading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 0%Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  libc++1-16 libc++abi1-16 libcamera0.3 libunwind-16 libwlroots12
+Use 'sudo apt autoremove' to remove them.
+Suggested packages:
+  python-evdev-doc
+The following NEW packages will be installed:
+  python3-evdev
+0 upgraded, 1 newly installed, 0 to remove and 8 not upgraded.
+Need to get 38.6 kB of archives.
+After this operation, 293 kB of additional disk space will be used.
+0% [Working]            Get:1 http://deb.debian.org/debian bookworm/main arm64 python3-evdev arm64 1.6.1+dfsg-1+b2 [38.6 kB]
+16% [1 python3-evdev 7,865 B/38.6 kB 20%]                                         100% [Working]              Fetched 38.6 kB in 0s (216 kB/s)
+Selecting previously unselected package python3-evdev.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 155692 files and directories currently installed.)
+Preparing to unpack .../python3-evdev_1.6.1+dfsg-1+b2_arm64.deb ...
+Unpacking python3-evdev (1.6.1+dfsg-1+b2) ...
+Setting up python3-evdev (1.6.1+dfsg-1+b2) ...
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m python xbox_controller_serial.py 
+[?2004l程序启动...
+[环境] Python版本: 3.11.2
+[环境] pyserial版本: 未安装
+[环境] 操作系统: linux
+[Serial] 尝试连接 /dev/ttyACM0，波特率: 115200
+[Serial] 错误: 设备文件不存在 - /dev/ttyACM0
+[Serial] 可用串口列表:
+[警告] 串口初始化失败，将继续运行但无法发送数据
+[Xbox] 正在查找Xbox手柄...
+程序已安全退出
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/evdev/device.py", line 125, in __init__
+    fd = os.open(dev, os.O_RDWR | os.O_NONBLOCK)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'event4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 296, in <module>
+    controller = XBoxController(
+                 ^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 56, in __init__
+    if not self.find_xbox_controller():
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 121, in find_xbox_controller
+    devices = [InputDevice(path) for path in os.listdir('/dev/input') if path.startswith('event')]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 121, in <listcomp>
+    devices = [InputDevice(path) for path in os.listdir('/dev/input') if path.startswith('event')]
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/evdev/device.py", line 127, in __init__
+    fd = os.open(dev, os.O_RDONLY | os.O_NONBLOCK)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'event4'
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo modprobe cdc_acm[27msudo modprobe cdc_acm
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo modprobe ftdi_sio[27msudo modprobe ftdi_sio
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mls /dev/tty*[27mls /dev/tty*
+[?2004l[0m[40;33;01m/dev/tty[0m    [40;33;01m/dev/tty12[0m  [40;33;01m/dev/tty17[0m  [40;33;01m/dev/tty21[0m  [40;33;01m/dev/tty26[0m  [40;33;01m/dev/tty30[0m  [40;33;01m/dev/tty35[0m  [40;33;01m/dev/tty4[0m   [40;33;01m/dev/tty44[0m  [40;33;01m/dev/tty49[0m  [40;33;01m/dev/tty53[0m  [40;33;01m/dev/tty58[0m  [40;33;01m/dev/tty62[0m  [40;33;01m/dev/ttyprintk[0m
+[40;33;01m/dev/tty0[0m   [40;33;01m/dev/tty13[0m  [40;33;01m/dev/tty18[0m  [40;33;01m/dev/tty22[0m  [40;33;01m/dev/tty27[0m  [40;33;01m/dev/tty31[0m  [40;33;01m/dev/tty36[0m  [40;33;01m/dev/tty40[0m  [40;33;01m/dev/tty45[0m  [40;33;01m/dev/tty5[0m   [40;33;01m/dev/tty54[0m  [40;33;01m/dev/tty59[0m  [40;33;01m/dev/tty63[0m
+[40;33;01m/dev/tty1[0m   [40;33;01m/dev/tty14[0m  [40;33;01m/dev/tty19[0m  [40;33;01m/dev/tty23[0m  [40;33;01m/dev/tty28[0m  [40;33;01m/dev/tty32[0m  [40;33;01m/dev/tty37[0m  [40;33;01m/dev/tty41[0m  [40;33;01m/dev/tty46[0m  [40;33;01m/dev/tty50[0m  [40;33;01m/dev/tty55[0m  [40;33;01m/dev/tty6[0m   [40;33;01m/dev/tty7[0m
+[40;33;01m/dev/tty10[0m  [40;33;01m/dev/tty15[0m  [40;33;01m/dev/tty2[0m   [40;33;01m/dev/tty24[0m  [40;33;01m/dev/tty29[0m  [40;33;01m/dev/tty33[0m  [40;33;01m/dev/tty38[0m  [40;33;01m/dev/tty42[0m  [40;33;01m/dev/tty47[0m  [40;33;01m/dev/tty51[0m  [40;33;01m/dev/tty56[0m  [40;33;01m/dev/tty60[0m  [40;33;01m/dev/tty8[0m
+[40;33;01m/dev/tty11[0m  [40;33;01m/dev/tty16[0m  [40;33;01m/dev/tty20[0m  [40;33;01m/dev/tty25[0m  [40;33;01m/dev/tty3[0m   [40;33;01m/dev/tty34[0m  [40;33;01m/dev/tty39[0m  [40;33;01m/dev/tty43[0m  [40;33;01m/dev/tty48[0m  [40;33;01m/dev/tty52[0m  [40;33;01m/dev/tty57[0m  [40;33;01m/dev/tty61[0m  [40;33;01m/dev/tty9[0m
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mdmesg | grep -i tty[27mdmesg | grep -i tty
+[?2004l[    0.000000] Kernel command line: coherent_pool=1M 8250.nr_uarts=0 snd_bcm2835.enable_headphones=0 cgroup_disable=memory numa_policy=interleave snd_bcm2835.enable_hdmi=0  numa=fake=2 system_heap.max_order=0 smsc95xx.macaddr=E4:5F:01:8A:A5:51 vc_mem.mem_base=0x3ec00000 vc_mem.mem_size=0x40000000  console=[01;31m[Ktty[m[KS0,115200 console=[01;31m[Ktty[m[K1 root=PARTUUID=2d9a58ae-02 rootfstype=ext4 fsck.repair=yes rootwait quiet splash plymouth.ignore-serial-consoles cfg80211.ieee80211_regdom=GB
+[    0.000352] printk: legacy console [[01;31m[Ktty[m[K1] enabled
+[    1.857455] fe201000.serial: [01;31m[Ktty[m[KAMA1 at MMIO 0xfe201000 (irq = 39, base_baud = 0) is a PL011 rev3
+[    1.857721] serial serial0: [01;31m[Ktty[m[K port [01;31m[Ktty[m[KAMA1 registered
+[    4.928959] systemd[1]: Created slice system-ge[01;31m[Ktty[m[K.slice - Slice /system/ge[01;31m[Ktty[m[K.
+[   15.728383] Bluetooth: RFCOMM [01;31m[KTTY[m[K layer initialized
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mlsusb[27mlsusb
+[?2004lBus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 003: ID 08bb:2902 Texas Instruments PCM2902 Audio Codec
+Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo modprobe ch341[27msudo modprobe ch341
+[?2004l[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mlsmod | grep -e ch341 -e cp210 -e ftdi -e cdc_acm[27mlsmod | grep -e ch341 -e cp210 -e ftdi -e cdc_acm
+[?2004l[01;31m[Kch341[m[K                  16384  0
+[01;31m[Kftdi[m[K_sio               53248  0
+usbserial              40960  2 [01;31m[Kftdi[m[K_sio,[01;31m[Kch341[m[K
+[01;31m[Kcdc_acm[m[K                32768  0
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mdmesg | grep -i usb[27mdmesg | grep -i usb
+[?2004l[    0.107643] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Kfs
+[    0.107687] [01;31m[Kusb[m[Kcore: registered new interface driver hub
+[    0.107730] [01;31m[Kusb[m[Kcore: registered new device driver [01;31m[Kusb[m[K
+[    1.695314] [01;31m[Kusb[m[Kcore: registered new interface driver lan78xx
+[    1.695354] [01;31m[Kusb[m[Kcore: registered new interface driver smsc95xx
+[    1.790234] xhci_hcd 0000:01:00.0: new [01;31m[KUSB[m[K bus registered, assigned bus number 1
+[    1.793222] xhci_hcd 0000:01:00.0: new [01;31m[KUSB[m[K bus registered, assigned bus number 2
+[    1.793240] xhci_hcd 0000:01:00.0: Host supports [01;31m[KUSB[m[K 3.0 SuperSpeed
+[    1.793474] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: New [01;31m[KUSB[m[K device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[    1.793491] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: New [01;31m[KUSB[m[K device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.793503] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: Product: xHCI Host Controller
+[    1.793512] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: Manufacturer: Linux 6.12.25+rpt-rpi-v8 xhci-hcd
+[    1.793522] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: SerialNumber: 0000:01:00.0
+[    1.794149] hub 1-0:1.0: [01;31m[KUSB[m[K hub found
+[    1.794762] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: New [01;31m[KUSB[m[K device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.12
+[    1.794780] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: New [01;31m[KUSB[m[K device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.794791] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: Product: xHCI Host Controller
+[    1.794801] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: Manufacturer: Linux 6.12.25+rpt-rpi-v8 xhci-hcd
+[    1.794810] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: SerialNumber: 0000:01:00.0
+[    1.795290] hub 2-0:1.0: [01;31m[KUSB[m[K hub found
+[    1.797258] [01;31m[Kusb[m[Kcore: registered new interface driver uas
+[    1.797318] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[K-storage
+[    1.802544] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Khid
+[    1.802554] [01;31m[Kusb[m[Khid: [01;31m[KUSB[m[K HID core driver
+[    2.046119] [01;31m[Kusb[m[K 1-1: new high-speed [01;31m[KUSB[m[K device number 2 using xhci_hcd
+[    2.184732] [01;31m[Kusb[m[K 1-1: New [01;31m[KUSB[m[K device found, idVendor=2109, idProduct=3431, bcdDevice= 4.21
+[    2.184768] [01;31m[Kusb[m[K 1-1: New [01;31m[KUSB[m[K device strings: Mfr=0, Product=1, SerialNumber=0
+[    2.184782] [01;31m[Kusb[m[K 1-1: Product: [01;31m[KUSB[m[K2.0 Hub
+[    2.191687] hub 1-1:1.0: [01;31m[KUSB[m[K hub found
+[    2.482090] [01;31m[Kusb[m[K 1-1.3: new full-speed [01;31m[KUSB[m[K device number 3 using xhci_hcd
+[    2.583968] [01;31m[Kusb[m[K 1-1.3: New [01;31m[KUSB[m[K device found, idVendor=08bb, idProduct=2902, bcdDevice= 1.00
+[    2.584006] [01;31m[Kusb[m[K 1-1.3: New [01;31m[KUSB[m[K device strings: Mfr=1, Product=2, SerialNumber=0
+[    2.584020] [01;31m[Kusb[m[K 1-1.3: Product: [01;31m[KUSB[m[K PnP Sound Device
+[    2.584219] [01;31m[Kusb[m[K 1-1.3: Manufacturer: C-Media Electronics Inc.      
+[    2.600202] input: C-Media Electronics Inc.       [01;31m[KUSB[m[K PnP Sound Device as /devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/[01;31m[Kusb[m[K1/1-1/1-1.3/1-1.3:1.2/0003:08BB:2902.0001/input/input0
+[    2.654551] hid-generic 0003:08BB:2902.0001: input,hidraw0: [01;31m[KUSB[m[K HID v1.00 Device [C-Media Electronics Inc.       [01;31m[KUSB[m[K PnP Sound Device] on [01;31m[Kusb[m[K-0000:01:00.0-1.3/input2
+[    7.423032] [01;31m[Kusb[m[Kcore: registered new interface driver snd-[01;31m[Kusb[m[K-audio
+[    8.481743] [01;31m[Kusb[m[Kcore: registered new interface driver brcmfmac
+[ 2255.476882] [01;31m[Kusb[m[Kcore: registered new interface driver cdc_acm
+[ 2255.476909] cdc_acm: [01;31m[KUSB[m[K Abstract Control Model driver for [01;31m[KUSB[m[K modems and ISDN adapters
+[ 2263.943710] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Kserial_generic
+[ 2263.943921] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for generic
+[ 2263.958939] [01;31m[Kusb[m[Kcore: registered new interface driver ftdi_sio
+[ 2263.959305] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for FTDI [01;31m[KUSB[m[K Serial Device
+[ 2370.085407] [01;31m[Kusb[m[Kcore: registered new interface driver ch341
+[ 2370.086172] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for ch341-uart
+[?2004h]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mworkon open-duck-mini-runtime[27mworkon open-duck-mini-runtime
+[?2004l[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mcd Open_Duck_Mini_Runtime[27mcd Open_Duck_Mini_Runtime
+[?2004lbash: cd: Open_Duck_Mini_Runtime: No such file or directory
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mbluetoothctl[27mbluetoothctl
+[?2004l[?2004hWaiting to connect to bluetoothd...[22P[0;94m[bluetooth][0m# [0;94m[Xbox Wireless Controller][0m# [KAgent registered
+[0;94m[Xbox Wireless Controller][0m# [7mscan on[27mscan on
+[?2004l[?2004h[0;94m[Xbox Wireless Controller][0m# [KDiscovery started
+[0;94m[Xbox Wireless Controller][0m# [K[[0;93mCHG[0m] Controller E4:5F:01:8A:A5:54 Discovering: yes
+[0;94m[Xbox Wireless Controller][0m# [K[[0;92mNEW[0m] Device 67:3D:29:B5:EE:13 67-3D-29-B5-EE-13
+[0;94m[Xbox Wireless Controller][0m# [K[[0;92mNEW[0m] Device 24:10:08:07:02:59 M.241008070259.du206
+[0;94m[Xbox Wireless Controller][0m# [K[[0;92mNEW[0m] Device 55:7C:97:93:EA:90 55-7C-97-93-EA-90
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K[[0;91mDEL[0m] Device 67:3D:29:B5:EE:13 67-3D-29-B5-EE-13
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K[[0;91mDEL[0m] Device 55:7C:97:93:EA:90 55-7C-97-93-EA-90
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K[[0;92mNEW[0m] Device 57:E0:F8:38:90:E5 57-E0-F8-38-90-E5
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K[[0;92mNEW[0m] Device 4C:F8:7E:31:A2:0D 4C-F8-7E-31-A2-0D
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K[[0;93mCHG[0m] Device 57:E0:F8:38:90:E5 ServiceData Key: 0000fdaa-0000-1000-8000-00805f9b34fb
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K[[0;93mCHG[0m] Device 57:E0:F8:38:90:E5 ServiceData Value:
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K  2d f3 32 38 31 39 31 33 30 37 35 35 e7 9a 84 52  -.2819130755...R
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K  65 93 64 6d 69 20 4b 36 30 20 ff                 e.dmi K60 .     
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[K[[0;93mCHG[0m] Device 24:10:08:07:02:59 RSSI: -84
+[0;94m[Xbox Wireless Controller][0m# [7mpair 84:25:26:00:9B:D2[27m[1Ppair 84:25:26:00:9B:D[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[[0;91mDEL[0m] Device 4C:F8:7E:31:A2:0D 4C-F8-7E-31-A2-0D
+[0;94m[Xbox Wireless Controller][0m# scan onpair DC:32:62:2C:3D:E9scan on[K[4Pyesquitquitconnect DC:A9:3B:EF:7pair DC:A9:3B:EF:7F:A7yes[Kquit4quitconnect DC:A9:3B:EF:7F:A7[3Ppair[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscan on[Kpair DC:A9:3B:EF:7F:A7[1@trust[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cyes[Kpair DC:A9:3B:EF:7F:A7[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[[0;91mDEL[0m] Device 57:E0:F8:38:90:E5 57-E0-F8-38-90-E5
+[0;94m[Xbox Wireless Controller][0m# cd[K[K[K[[0;93mCHG[0m] Device 8B:2A:EF:3D:B2:B2 RSSI: -34
+[0;94m[Xbox Wireless Controller][0m# [K[[0;93mCHG[0m] Device 8B:2A:EF:3D:B2:B2 UUIDs: 00001812-0000-1000-8000-00805f9b34fb
+[0;94m[Xbox Wireless Controller][0m# [K[[0;93mCHG[0m] Device 8B:2A:EF:3D:B2:B2 ManufacturerData Key: 0xfffe
+[0;94m[Xbox Wireless Controller][0m# [K[[0;93mCHG[0m] Device 8B:2A:EF:3D:B2:B2 ManufacturerData Value:
+[0;94m[Xbox Wireless Controller][0m# [K  5a 4a 2d 54 34 4e 5f 4c 49 54 45                 ZJ-T4N_LITE     
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# [K[[0;93mCHG[0m] Device 24:10:08:07:02:59 RSSI: -64
+[0;94m[Xbox Wireless Controller][0m# cd[K[K
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[0;94m[Xbox Wireless Controller][0m# 
+[1]+  Stopped                 bluetoothctl
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m ^C[?2004l[?2004h[?2004l
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m python xbox_controller_serial.py 
+[?2004l程序启动...
+[环境] Python版本: 3.11.2
+[环境] pyserial版本: 未安装
+[环境] 操作系统: linux
+[Serial] 尝试连接 /dev/ttyACM0，波特率: 115200
+[Serial] 错误: 设备文件不存在 - /dev/ttyACM0
+[Serial] 可用串口列表:
+[警告] 串口初始化失败，将继续运行但无法发送数据
+[Xbox] 正在查找Xbox手柄...
+程序已安全退出
+Traceback (most recent call last):
+  File "/home/lxkj/.virtualenvs/open-duck-mini-runtime/lib/python3.11/site-packages/evdev/device.py", line 123, in __init__
+    fd = os.open(dev, os.O_RDWR | os.O_NONBLOCK)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'event5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 296, in <module>
+    controller = XBoxController(
+                 ^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 56, in __init__
+    if not self.find_xbox_controller():
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 121, in find_xbox_controller
+    devices = [InputDevice(path) for path in os.listdir('/dev/input') if path.startswith('event')]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 121, in <listcomp>
+    devices = [InputDevice(path) for path in os.listdir('/dev/input') if path.startswith('event')]
+               ^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/.virtualenvs/open-duck-mini-runtime/lib/python3.11/site-packages/evdev/device.py", line 125, in __init__
+    fd = os.open(dev, os.O_RDONLY | os.O_NONBLOCK)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'event5'
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m python xbox_controller_serial.py 
+[?2004l程序启动...
+[Serial] 自动检测可用串口...
+[Serial] ❌ 未发现可用串口
+[警告] 未指定串口且自动检测失败
+[环境] Python版本: 3.11.2
+[环境] pyserial版本: 3.5
+[环境] 操作系统: linux
+程序已安全退出
+Traceback (most recent call last):
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 354, in <module>
+    controller = XBoxController(
+                 ^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 60, in __init__
+    if not self.try_init_serial():
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 106, in try_init_serial
+    if not self.serial_port:
+           ^^^^^^^^^^^^^^^^
+AttributeError: 'XBoxController' object has no attribute 'serial_port'
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo python3 xbox_controller_serial.py[27msudo python3 xbox_controller_serial.py
+[?2004l程序启动...
+[Serial] 自动检测可用串口...
+[Serial] ❌ 未发现可用串口
+[警告] 未指定串口且自动检测失败
+[环境] Python版本: 3.11.2
+[环境] pyserial版本: 3.5
+[环境] 操作系统: linux
+程序已安全退出
+Traceback (most recent call last):
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 354, in <module>
+    controller = XBoxController(
+                 ^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 60, in __init__
+    if not self.try_init_serial():
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lxkj/Open_Duck_Mini_Runtime/scripts/xbox_controller_serial.py", line 106, in try_init_serial
+    if not self.serial_port:
+           ^^^^^^^^^^^^^^^^
+AttributeError: 'XBoxController' object has no attribute 'serial_port'
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mls /dev/tty*[27mls /dev/tty*
+[?2004l[0m[40;33;01m/dev/tty[0m    [40;33;01m/dev/tty12[0m  [40;33;01m/dev/tty17[0m  [40;33;01m/dev/tty21[0m  [40;33;01m/dev/tty26[0m  [40;33;01m/dev/tty30[0m  [40;33;01m/dev/tty35[0m  [40;33;01m/dev/tty4[0m   [40;33;01m/dev/tty44[0m  [40;33;01m/dev/tty49[0m  [40;33;01m/dev/tty53[0m  [40;33;01m/dev/tty58[0m  [40;33;01m/dev/tty62[0m  [40;33;01m/dev/ttyprintk[0m
+[40;33;01m/dev/tty0[0m   [40;33;01m/dev/tty13[0m  [40;33;01m/dev/tty18[0m  [40;33;01m/dev/tty22[0m  [40;33;01m/dev/tty27[0m  [40;33;01m/dev/tty31[0m  [40;33;01m/dev/tty36[0m  [40;33;01m/dev/tty40[0m  [40;33;01m/dev/tty45[0m  [40;33;01m/dev/tty5[0m   [40;33;01m/dev/tty54[0m  [40;33;01m/dev/tty59[0m  [40;33;01m/dev/tty63[0m
+[40;33;01m/dev/tty1[0m   [40;33;01m/dev/tty14[0m  [40;33;01m/dev/tty19[0m  [40;33;01m/dev/tty23[0m  [40;33;01m/dev/tty28[0m  [40;33;01m/dev/tty32[0m  [40;33;01m/dev/tty37[0m  [40;33;01m/dev/tty41[0m  [40;33;01m/dev/tty46[0m  [40;33;01m/dev/tty50[0m  [40;33;01m/dev/tty55[0m  [40;33;01m/dev/tty6[0m   [40;33;01m/dev/tty7[0m
+[40;33;01m/dev/tty10[0m  [40;33;01m/dev/tty15[0m  [40;33;01m/dev/tty2[0m   [40;33;01m/dev/tty24[0m  [40;33;01m/dev/tty29[0m  [40;33;01m/dev/tty33[0m  [40;33;01m/dev/tty38[0m  [40;33;01m/dev/tty42[0m  [40;33;01m/dev/tty47[0m  [40;33;01m/dev/tty51[0m  [40;33;01m/dev/tty56[0m  [40;33;01m/dev/tty60[0m  [40;33;01m/dev/tty8[0m
+[40;33;01m/dev/tty11[0m  [40;33;01m/dev/tty16[0m  [40;33;01m/dev/tty20[0m  [40;33;01m/dev/tty25[0m  [40;33;01m/dev/tty3[0m   [40;33;01m/dev/tty34[0m  [40;33;01m/dev/tty39[0m  [40;33;01m/dev/tty43[0m  [40;33;01m/dev/tty48[0m  [40;33;01m/dev/tty52[0m  [40;33;01m/dev/tty57[0m  [40;33;01m/dev/tty61[0m  [40;33;01m/dev/tty9[0m
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mdmesg | grep -i usb[27mdmesg | grep -i usb
+[?2004l[    0.107643] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Kfs
+[    0.107687] [01;31m[Kusb[m[Kcore: registered new interface driver hub
+[    0.107730] [01;31m[Kusb[m[Kcore: registered new device driver [01;31m[Kusb[m[K
+[    1.695314] [01;31m[Kusb[m[Kcore: registered new interface driver lan78xx
+[    1.695354] [01;31m[Kusb[m[Kcore: registered new interface driver smsc95xx
+[    1.790234] xhci_hcd 0000:01:00.0: new [01;31m[KUSB[m[K bus registered, assigned bus number 1
+[    1.793222] xhci_hcd 0000:01:00.0: new [01;31m[KUSB[m[K bus registered, assigned bus number 2
+[    1.793240] xhci_hcd 0000:01:00.0: Host supports [01;31m[KUSB[m[K 3.0 SuperSpeed
+[    1.793474] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: New [01;31m[KUSB[m[K device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[    1.793491] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: New [01;31m[KUSB[m[K device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.793503] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: Product: xHCI Host Controller
+[    1.793512] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: Manufacturer: Linux 6.12.25+rpt-rpi-v8 xhci-hcd
+[    1.793522] [01;31m[Kusb[m[K [01;31m[Kusb[m[K1: SerialNumber: 0000:01:00.0
+[    1.794149] hub 1-0:1.0: [01;31m[KUSB[m[K hub found
+[    1.794762] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: New [01;31m[KUSB[m[K device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.12
+[    1.794780] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: New [01;31m[KUSB[m[K device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.794791] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: Product: xHCI Host Controller
+[    1.794801] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: Manufacturer: Linux 6.12.25+rpt-rpi-v8 xhci-hcd
+[    1.794810] [01;31m[Kusb[m[K [01;31m[Kusb[m[K2: SerialNumber: 0000:01:00.0
+[    1.795290] hub 2-0:1.0: [01;31m[KUSB[m[K hub found
+[    1.797258] [01;31m[Kusb[m[Kcore: registered new interface driver uas
+[    1.797318] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[K-storage
+[    1.802544] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Khid
+[    1.802554] [01;31m[Kusb[m[Khid: [01;31m[KUSB[m[K HID core driver
+[    2.046119] [01;31m[Kusb[m[K 1-1: new high-speed [01;31m[KUSB[m[K device number 2 using xhci_hcd
+[    2.184732] [01;31m[Kusb[m[K 1-1: New [01;31m[KUSB[m[K device found, idVendor=2109, idProduct=3431, bcdDevice= 4.21
+[    2.184768] [01;31m[Kusb[m[K 1-1: New [01;31m[KUSB[m[K device strings: Mfr=0, Product=1, SerialNumber=0
+[    2.184782] [01;31m[Kusb[m[K 1-1: Product: [01;31m[KUSB[m[K2.0 Hub
+[    2.191687] hub 1-1:1.0: [01;31m[KUSB[m[K hub found
+[    2.482090] [01;31m[Kusb[m[K 1-1.3: new full-speed [01;31m[KUSB[m[K device number 3 using xhci_hcd
+[    2.583968] [01;31m[Kusb[m[K 1-1.3: New [01;31m[KUSB[m[K device found, idVendor=08bb, idProduct=2902, bcdDevice= 1.00
+[    2.584006] [01;31m[Kusb[m[K 1-1.3: New [01;31m[KUSB[m[K device strings: Mfr=1, Product=2, SerialNumber=0
+[    2.584020] [01;31m[Kusb[m[K 1-1.3: Product: [01;31m[KUSB[m[K PnP Sound Device
+[    2.584219] [01;31m[Kusb[m[K 1-1.3: Manufacturer: C-Media Electronics Inc.      
+[    2.600202] input: C-Media Electronics Inc.       [01;31m[KUSB[m[K PnP Sound Device as /devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/[01;31m[Kusb[m[K1/1-1/1-1.3/1-1.3:1.2/0003:08BB:2902.0001/input/input0
+[    2.654551] hid-generic 0003:08BB:2902.0001: input,hidraw0: [01;31m[KUSB[m[K HID v1.00 Device [C-Media Electronics Inc.       [01;31m[KUSB[m[K PnP Sound Device] on [01;31m[Kusb[m[K-0000:01:00.0-1.3/input2
+[    7.423032] [01;31m[Kusb[m[Kcore: registered new interface driver snd-[01;31m[Kusb[m[K-audio
+[    8.481743] [01;31m[Kusb[m[Kcore: registered new interface driver brcmfmac
+[ 2255.476882] [01;31m[Kusb[m[Kcore: registered new interface driver cdc_acm
+[ 2255.476909] cdc_acm: [01;31m[KUSB[m[K Abstract Control Model driver for [01;31m[KUSB[m[K modems and ISDN adapters
+[ 2263.943710] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Kserial_generic
+[ 2263.943921] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for generic
+[ 2263.958939] [01;31m[Kusb[m[Kcore: registered new interface driver ftdi_sio
+[ 2263.959305] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for FTDI [01;31m[KUSB[m[K Serial Device
+[ 2370.085407] [01;31m[Kusb[m[Kcore: registered new interface driver ch341
+[ 2370.086172] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for ch341-uart
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mdmesg | tail -n 50 | grep -i usb[27mdmesg | tail -n 50 | grep -i usb
+[?2004l[ 2255.476882] [01;31m[Kusb[m[Kcore: registered new interface driver cdc_acm
+[ 2255.476909] cdc_acm: [01;31m[KUSB[m[K Abstract Control Model driver for [01;31m[KUSB[m[K modems and ISDN adapters
+[ 2263.943710] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Kserial_generic
+[ 2263.943921] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for generic
+[ 2263.958939] [01;31m[Kusb[m[Kcore: registered new interface driver ftdi_sio
+[ 2263.959305] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for FTDI [01;31m[KUSB[m[K Serial Device
+[ 2370.085407] [01;31m[Kusb[m[Kcore: registered new interface driver ch341
+[ 2370.086172] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for ch341-uart
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo chmod 666 /dev/ttyUSB0[27msudo chmod 666 /dev/ttyUSB0
+[?2004lchmod: cannot access '/dev/ttyUSB0': No such file or directory
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo chmod 666 /dev/ttyUSB0[27m[1Psudo chmod 666 /dev/ttyUSB[K[K[K[K[K[K[K[K[K[K[K[K
+[?2004lchmod: missing operand after ‘666’
+Try 'chmod --help' for more information.
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mpython3 -c "import serial; ser = serial.Serial('/dev/ttyUSB0', 115200); print('串口连接成功:', ser.is_[27m[7mo[27m[7mpen)"[27m[A(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m python3 -c "import serial; ser = serial.Serial('/dev/ttyUSB0', 115200); print('串口连接成功:', ser.is_open)"
+[?2004lTraceback (most recent call last):
+  File "/home/lxkj/.virtualenvs/open-duck-mini-runtime/lib/python3.11/site-packages/serial/serialposix.py", line 322, in open
+    self.fd = os.open(self.portstr, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/lxkj/.virtualenvs/open-duck-mini-runtime/lib/python3.11/site-packages/serial/serialutil.py", line 244, in __init__
+    self.open()
+  File "/home/lxkj/.virtualenvs/open-duck-mini-runtime/lib/python3.11/site-packages/serial/serialposix.py", line 325, in open
+    raise SerialException(msg.errno, "could not open port {}: {}".format(self._port, msg))
+serial.serialutil.SerialException: [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo chmod 666 /dev/ttyUSB0[27msudo chmod 666 /dev/ttyUSB0
+[?2004lchmod: cannot access '/dev/ttyUSB0': No such file or directory
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mchmod: cannot access '/dev/ttyUSB0': No such file or directory[27m[1Pchmod: cannot access '/dev/ttyUSB0': No such file or director[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7mlsusb[27mlsusb
+[?2004lBus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 003: ID 08bb:2902 Texas Instruments PCM2902 Audio Codec
+Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mdmesg | tail -n 100 | grep -i usb[27mdmesg | tail -n 100 | grep -i usb
+[?2004l[    8.481743] [01;31m[Kusb[m[Kcore: registered new interface driver brcmfmac
+[ 2255.476882] [01;31m[Kusb[m[Kcore: registered new interface driver cdc_acm
+[ 2255.476909] cdc_acm: [01;31m[KUSB[m[K Abstract Control Model driver for [01;31m[KUSB[m[K modems and ISDN adapters
+[ 2263.943710] [01;31m[Kusb[m[Kcore: registered new interface driver [01;31m[Kusb[m[Kserial_generic
+[ 2263.943921] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for generic
+[ 2263.958939] [01;31m[Kusb[m[Kcore: registered new interface driver ftdi_sio
+[ 2263.959305] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for FTDI [01;31m[KUSB[m[K Serial Device
+[ 2370.085407] [01;31m[Kusb[m[Kcore: registered new interface driver ch341
+[ 2370.086172] [01;31m[Kusb[m[Kserial: [01;31m[KUSB[m[K Serial support registered for ch341-uart
+[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7mlsusb | grep -i ch340[27mlsusb | grep -i ch340
+[?2004l[?2004h(open-duck-mini-runtime) ]0;lxkj@raspberrypi: ~/Open_Duck_Mini_Runtime/scripts[01;32mlxkj@raspberrypi[00m:[01;34m~/Open_Duck_Mini_Runtime/scripts $[00m [7msudo nano /etc/modprobe.d/ch340.conf[27msudo nano /etc/modprobe.d/ch340.conf
+[?2004l[?2004h[?1049h[22;0;0t[1;52r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[50;84H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 7.2                                                                 /etc/modprobe.d/ch340.conf                                                                          [1;178H(B[m[51d(B[0;7m^G(B[m Help[51;18H(B[0;7m^O(B[m Write Out     (B[0;7m^W(B[m Where Is[52G(B[0;7m^K(B[m Cut[51;69H(B[0;7m^T(B[m Execute[86G(B[0;7m^C(B[m Location[103G(B[0;7mM-U(B[m Undo[51;120H(B[0;7mM-A(B[m Set Mark     (B[0;7mM-](B[m To Bracket   (B[0;7mM-Q(B[m Previous[52d(B[0;7m^X(B[m Exit[52;18H(B[0;7m^R(B[m Read File     (B[0;7m^\(B[m Replace[52G(B[0;7m^U(B[m Paste[52;69H(B[0;7m^J(B[m Justify[86G(B[0;7m^/(B[m Go To Line    (B[0;7mM-E(B[m Redo[52;120H(B[0;7mM-6(B[m Copy[52;137H(B[0;7m^Q(B[m Where Was     (B[0;7mM-W(B[m Next[2d[?12l[?25h[?25l[1;107H(B[0;7m*[50d(B[m[K[1;17
