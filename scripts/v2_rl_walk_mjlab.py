@@ -160,6 +160,7 @@ class MjlabRLWalk:
         pitch_bias=0.0,
         cutoff_frequency=None,
         max_target_step=0.08,
+        action_gain=1.0,
         dry_run=False,
         debug=False,
     ):
@@ -167,6 +168,7 @@ class MjlabRLWalk:
         self.dry_run = dry_run
         self.control_freq = control_freq
         self.max_target_step = max_target_step
+        self.action_gain = action_gain
 
         self.policy = OnnxInfer(onnx_model_path, awd=True)
         self.motion = MjlabMotionReference(motion_path)
@@ -267,7 +269,7 @@ class MjlabRLWalk:
         action = np.asarray(action, dtype=np.float32)
         if action.shape != (ACTION_DIM,):
             raise ValueError(f"action shape {action.shape} != ({ACTION_DIM},)")
-        target = action * self.action_scale
+        target = action * self.action_scale * self.action_gain
         if self.max_target_step is not None and self.motion_i > 0:
             delta = np.clip(
                 target - self.motor_targets,
@@ -297,6 +299,7 @@ class MjlabRLWalk:
                 f"frame={self.motion_i % self.motion.num_frames} "
                 f"obs_norm={np.linalg.norm(obs):.3f} "
                 f"action_abs_max={np.max(np.abs(action)):.3f} "
+                f"action_gain={self.action_gain:.3f} "
                 f"target_abs_max={np.max(np.abs(target)):.3f}"
             )
 
@@ -336,6 +339,7 @@ def main():
     parser.add_argument("--pitch_bias", type=float, default=0.0)
     parser.add_argument("--cutoff_frequency", type=float, default=None)
     parser.add_argument("--max_target_step", type=float, default=0.08)
+    parser.add_argument("--action_gain", type=float, default=1.0)
     parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
@@ -350,6 +354,7 @@ def main():
         pitch_bias=args.pitch_bias,
         cutoff_frequency=args.cutoff_frequency,
         max_target_step=args.max_target_step,
+        action_gain=args.action_gain,
         dry_run=args.dry_run,
         debug=args.debug,
     )

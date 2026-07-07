@@ -5,4 +5,5 @@ python v2_rl_walk_mjlab.py \
   --duck_config_path ../duck_config.json \
   --control_freq 50 \
   --max_target_step 0.04 \
+  --action_gain 0.1 \
   --debug
