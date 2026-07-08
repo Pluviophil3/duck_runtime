@@ -5,9 +5,9 @@ import sys
 import time
 
 
+HOME_DIR = os.path.expanduser("~")
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 RUNTIME_DIR = os.path.dirname(SCRIPT_DIR)
-DEFAULT_CONFIG_PATH = os.path.join(RUNTIME_DIR, "duck_config.json")
 
 
 def load_config(config_path):
@@ -42,7 +42,7 @@ def main():
     )
     parser.add_argument(
         "--duck_config_path",
-        default=DEFAULT_CONFIG_PATH,
+        default=f"{HOME_DIR}/duck_config.json",
         help="Path to duck_config.json on the robot.",
     )
     parser.add_argument("--serial_port", default="/dev/ttyACM0")
