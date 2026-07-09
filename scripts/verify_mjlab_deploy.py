@@ -26,9 +26,15 @@ def load_runtime_constants(script_path):
                 "JOINT_ORDER_16",
                 "ACTION_ORDER_14",
                 "ACTION_SCALE_BY_JOINT",
+                "JOINT_LIMITS_BY_JOINT",
             ):
                 constants[target.id] = ast.literal_eval(node.value)
-    missing = {"JOINT_ORDER_16", "ACTION_ORDER_14", "ACTION_SCALE_BY_JOINT"} - set(constants)
+    missing = {
+        "JOINT_ORDER_16",
+        "ACTION_ORDER_14",
+        "ACTION_SCALE_BY_JOINT",
+        "JOINT_LIMITS_BY_JOINT",
+    } - set(constants)
     if missing:
         raise AssertionError(f"missing runtime constants: {sorted(missing)}")
     return constants
@@ -36,7 +42,13 @@ def load_runtime_constants(script_path):
 
 def xml_joint_order(xml_path):
     root = ET.parse(xml_path).getroot()
-    return [j.attrib["name"] for j in root.iter("joint") if "name" in j.attrib]
+    return [
+        j.attrib["name"]
+        for j in root.iter("joint")
+        if "name" in j.attrib
+        and j.attrib["name"] != "root"
+        and not j.attrib["name"].endswith("_backlash")
+    ]
 
 
 def xml_action_order(xml_path):
@@ -47,6 +59,20 @@ def xml_action_order(xml_path):
         if a.attrib.get("joint", a.attrib.get("name"))
     ]
     return [name for name in names if "antenna" not in name]
+
+
+def xml_joint_limits(xml_path, joint_names):
+    root = ET.parse(xml_path).getroot()
+    limits = {}
+    for joint in root.iter("joint"):
+        name = joint.attrib.get("name")
+        if name not in joint_names:
+            continue
+        range_text = joint.attrib.get("range")
+        if range_text is None:
+            raise AssertionError(f"joint {name} has no XML range")
+        limits[name] = tuple(float(value) for value in range_text.split())
+    return limits
 
 
 def assert_equal(name, actual, expected):
@@ -63,7 +89,7 @@ def main():
     )
     parser.add_argument(
         "--xml",
-        default="../../unitree_rl_mjlab/src/assets/robots/open_duck_mini_v2/xmls/open_duck_mini_v2.xml",
+        default="../../unitree_rl_mjlab/src/assets/robots/open_duck_mini_v2/xmls/open_duck_mini_v2_real.xml",
     )
     args = parser.parse_args()
 
@@ -90,6 +116,16 @@ def main():
 
     runtime_scales = [runtime["ACTION_SCALE_BY_JOINT"][name] for name in runtime["ACTION_ORDER_14"]]
     assert_equal("action_scale_14", runtime_scales, manifest["action_scale_14"])
+
+    runtime_limits = {
+        name: tuple(runtime["JOINT_LIMITS_BY_JOINT"][name])
+        for name in runtime["ACTION_ORDER_14"]
+    }
+    assert_equal(
+        "runtime real joint limits",
+        runtime_limits,
+        xml_joint_limits(xml_path, runtime["ACTION_ORDER_14"]),
+    )
 
     obs_end = 0
     for term in manifest["observation_schema"]:

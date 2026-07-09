@@ -66,6 +66,11 @@ The manifest pins the 16D joint/reference order, 14D action order, observation
 slices, action scale, and file hashes. Keep it in sync whenever replacing the
 policy or motion file.
 
+The current mjlab schema is compatible with the real/backlash OpenDuck XML:
+runtime observations stay 16D and actions stay 14D. Passive `*_backlash` joints
+exist only in simulation and are excluded from deployment; runtime safety clips
+use the real XML limits for the commanded joints.
+
 # Xiaozhi speech control with duck mini
 
 ## Raspberry Pi 4 Used.

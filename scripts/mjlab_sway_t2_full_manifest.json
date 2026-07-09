@@ -16,6 +16,12 @@
     "anchor_body_name": "trunk_assembly",
     "anchor_body_index": 0
   },
+  "xml": {
+    "path": "../../unitree_rl_mjlab/src/assets/robots/open_duck_mini_v2/xmls/open_duck_mini_v2_real.xml",
+    "joint_state_dim": 16,
+    "action_dim": 14,
+    "notes": "Runtime observes/commands only main joints. The training XML may include passive *_backlash joints, which are ignored by the deployment interface."
+  },
   "observation_schema": [
     {"name": "reference_joint_position", "start": 0, "end": 16, "dim": 16},
     {"name": "reference_joint_velocity", "start": 16, "end": 32, "dim": 16},
@@ -78,8 +84,10 @@
   "action_offset": "mjlab_default_joint_position_zero",
   "runtime_notes": [
     "The 16D reference and joint-state order follows the OpenDuck MJCF joint order.",
+    "For the real/backlash XML, root and passive *_backlash joints are excluded from the runtime joint-state order.",
     "The 14D action order is joint_order_16 with left_antenna and right_antenna removed.",
     "Do not use the legacy runtime action_scale=0.25 or init_pos action offset for this policy.",
+    "Runtime safety clips use the real XML hard limits for the 14 commanded joints.",
     "The mjlab tracking play reset starts at reference motion frame 0, so runtime initial_pose should be motion_start unless explicitly validating zero pose."
   ]
 }

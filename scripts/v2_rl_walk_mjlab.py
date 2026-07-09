@@ -74,20 +74,20 @@ OBS_DIM = 87
 ACTION_DIM = 14
 
 JOINT_LIMITS_BY_JOINT = {
-    "left_hip_yaw": (-0.523599, 0.523599),
-    "left_hip_roll": (-0.436332, 0.436332),
-    "left_hip_pitch": (-1.22173, 0.523599),
-    "left_knee": (-1.5708, 1.5708),
-    "left_ankle": (-1.5708, 1.5708),
-    "neck_pitch": (-0.349066, 1.13446),
-    "head_pitch": (-0.785398, 0.785398),
-    "head_yaw": (-2.79253, 2.79253),
-    "head_roll": (-0.523599, 0.523599),
-    "right_hip_yaw": (-0.523599, 0.523599),
-    "right_hip_roll": (-0.436332, 0.436332),
-    "right_hip_pitch": (-0.523599, 1.22173),
-    "right_knee": (-1.5708, 1.5708),
-    "right_ankle": (-1.5708, 1.5708),
+    "left_hip_yaw": (-0.39, 0.33),
+    "left_hip_roll": (-0.46, 0.53),
+    "left_hip_pitch": (-0.45, 0.17),
+    "left_knee": (-0.38, 0.77),
+    "left_ankle": (-0.756, 0.704),
+    "neck_pitch": (0.0, 0.7),
+    "head_pitch": (-0.7, 0.54),
+    "head_yaw": (-0.45, 0.58),
+    "head_roll": (-0.6, 0.7),
+    "right_hip_yaw": (-0.369, 0.502),
+    "right_hip_roll": (-0.584, 0.42),
+    "right_hip_pitch": (-0.23, 0.47),
+    "right_knee": (-0.373, 0.753),
+    "right_ankle": (-0.765, 0.676),
 }
 
 OBS_SLICES = (
