@@ -265,6 +265,7 @@ class MjlabRLWalk:
         self.pid = pid
         self.last_action = np.zeros(ACTION_DIM, dtype=np.float32)
         self.motion_i = start_frame
+        self.last_timing = {}
 
         self.action_scale = np.array(
             [ACTION_SCALE_BY_JOINT[name] for name in ACTION_ORDER_14],
@@ -506,6 +507,20 @@ class MjlabRLWalk:
             f"current_abs_max={np.max(np.abs(current_14)):.3f}"
         )
         print(f"  obs: {obs_norms}")
+        if self.last_timing:
+            step_ms = self.last_timing["step_ms"]
+            compute_hz = 1000.0 / step_ms if step_ms > 1e-6 else float("inf")
+            budget_ms = 1000.0 / self.control_freq
+            print(
+                "  timing: "
+                f"obs={self.last_timing['obs_ms']:.2f}ms "
+                f"infer={self.last_timing['infer_ms']:.2f}ms "
+                f"target={self.last_timing['target_ms']:.2f}ms "
+                f"command={self.last_timing['command_ms']:.2f}ms "
+                f"step={step_ms:.2f}ms "
+                f"compute_hz={compute_hz:.1f} "
+                f"budget={budget_ms:.2f}ms"
+            )
         print("  " + self._format_top_abs("action", action, ACTION_ORDER_14))
         print("  " + self._format_top_abs("target-current", target_error, ACTION_ORDER_14))
         print("  " + self._format_top_abs("current-ref", ref_error, ACTION_ORDER_14))
@@ -514,25 +529,43 @@ class MjlabRLWalk:
         self._warn_limit_violations("target", target)
 
     def step(self):
+        step_t0 = time.perf_counter()
+        obs_t0 = time.perf_counter()
         obs = self.get_obs()
         if obs is None:
             return False
+        obs_t1 = time.perf_counter()
+        infer_t0 = time.perf_counter()
         raw_action = self.policy.infer(obs).astype(np.float32)
+        infer_t1 = time.perf_counter()
+        action_t0 = time.perf_counter()
         action = self._process_action(raw_action)
         target = self._targets_from_action(action)
 
         if self.action_filter is not None:
             self.action_filter.push(target)
             target = self.action_filter.get_filtered_action()
+        action_t1 = time.perf_counter()
 
         self.last_action = action.copy()
         self.motor_targets = target.copy()
 
-        if self.debug and self.motion_i % self.debug_interval_steps == 0:
-            self._debug_print_step(obs, action, target)
-
+        command_t0 = time.perf_counter()
         if self.hwi is not None:
             self.hwi.set_position_all(make_action_dict(target, ACTION_ORDER_14))
+        command_t1 = time.perf_counter()
+
+        step_t1 = time.perf_counter()
+        self.last_timing = {
+            "obs_ms": (obs_t1 - obs_t0) * 1000.0,
+            "infer_ms": (infer_t1 - infer_t0) * 1000.0,
+            "target_ms": (action_t1 - action_t0) * 1000.0,
+            "command_ms": (command_t1 - command_t0) * 1000.0,
+            "step_ms": (step_t1 - step_t0) * 1000.0,
+        }
+
+        if self.debug and self.motion_i % self.debug_interval_steps == 0:
+            self._debug_print_step(obs, action, target)
 
         self.motion_i += 1
         return True
