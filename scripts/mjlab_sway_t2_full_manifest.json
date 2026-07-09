@@ -1,10 +1,10 @@
 {
-  "name": "sway_t2_full",
+  "name": "open_duck_real_backlash",
   "task": "OpenDuck-Tracking-No-State-Estimation",
   "training_run": "unitree_rl_mjlab/logs/rsl_rl/open_duck_tracking/2026-07-06_15-33-06_sway-t2-full",
   "policy": {
-    "path": "sway_t2_full.onnx",
-    "sha256": "0dd6d1a145c9e781d6d525a37de310df7d9085b981a6abc3e67a8462b80413d8",
+    "path": "open_duck_real_backlash.onnx",
+    "sha256": "5928a1993667d12cb3fe6abc31f23e73e7d2f2d68ca1c2f24dadf57812cf6958",
     "input_name": "obs",
     "input_dim": 87,
     "output_dim": 14
