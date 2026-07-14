@@ -352,7 +352,6 @@ class MjlabRLWalk:
     def start(self, target_pos):
         kps = [self.pid[0]] * ACTION_DIM
         kds = [self.pid[2]] * ACTION_DIM
-        kps[5:9] = [8, 8, 8, 8]
         self.hwi.set_kps(kps)
         self.hwi.set_kds(kds)
         self.hwi.turn_on(target_pos=target_pos)
