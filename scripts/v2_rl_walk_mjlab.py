@@ -266,6 +266,10 @@ class MjlabRLWalk:
         self.last_action = np.zeros(ACTION_DIM, dtype=np.float32)
         self.motion_i = start_frame
         self.last_timing = {}
+        self.last_raw_action = np.zeros(ACTION_DIM, dtype=np.float32)
+        self.last_target_scaled = np.zeros(ACTION_DIM, dtype=np.float32)
+        self.last_target_rate_limited = np.zeros(ACTION_DIM, dtype=np.float32)
+        self.last_target_safety_input = np.zeros(ACTION_DIM, dtype=np.float32)
 
         self.action_scale = np.array(
             [ACTION_SCALE_BY_JOINT[name] for name in ACTION_ORDER_14],
@@ -449,6 +453,7 @@ class MjlabRLWalk:
         if action.shape != (ACTION_DIM,):
             raise ValueError(f"action shape {action.shape} != ({ACTION_DIM},)")
         target = action * self.action_scale * self.action_gain
+        self.last_target_scaled = target.astype(np.float32)
         if self.max_target_step is not None and self.motion_i > 0:
             delta = np.clip(
                 target - self.motor_targets,
@@ -456,7 +461,9 @@ class MjlabRLWalk:
                 self.max_target_step,
             )
             target = self.motor_targets + delta
+        self.last_target_rate_limited = target.astype(np.float32)
         unclipped = target.astype(np.float32)
+        self.last_target_safety_input = unclipped.copy()
         if self.safety_clip:
             target = np.clip(unclipped, self.clip_lower, self.clip_upper)
             clipped = np.abs(target - unclipped) > 1e-6
@@ -521,7 +528,30 @@ class MjlabRLWalk:
                 f"compute_hz={compute_hz:.1f} "
                 f"budget={budget_ms:.2f}ms"
             )
+        print("  " + self._format_top_abs("raw_action", self.last_raw_action, ACTION_ORDER_14))
         print("  " + self._format_top_abs("action", action, ACTION_ORDER_14))
+        print(
+            "  "
+            + self._format_top_abs(
+                "scaled_target", self.last_target_scaled, ACTION_ORDER_14
+            )
+        )
+        print(
+            "  "
+            + self._format_top_abs(
+                "rate_limit_delta",
+                self.last_target_rate_limited - self.last_target_scaled,
+                ACTION_ORDER_14,
+            )
+        )
+        print(
+            "  "
+            + self._format_top_abs(
+                "safety_clip_delta",
+                target - self.last_target_safety_input,
+                ACTION_ORDER_14,
+            )
+        )
         print("  " + self._format_top_abs("target-current", target_error, ACTION_ORDER_14))
         print("  " + self._format_top_abs("current-ref", ref_error, ACTION_ORDER_14))
         print("  " + self._format_top_abs("joint_vel", vel_14, ACTION_ORDER_14))
@@ -537,6 +567,7 @@ class MjlabRLWalk:
         obs_t1 = time.perf_counter()
         infer_t0 = time.perf_counter()
         raw_action = self.policy.infer(obs).astype(np.float32)
+        self.last_raw_action = raw_action.copy()
         infer_t1 = time.perf_counter()
         action_t0 = time.perf_counter()
         action = self._process_action(raw_action)
