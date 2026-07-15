@@ -297,6 +297,9 @@ class MjlabRLWalk:
             current_pos = self.hwi.get_present_positions()
             if current_pos is not None and len(current_pos) == ACTION_DIM:
                 self.motor_targets = current_pos.astype(np.float32)
+                if self.action_filter is not None:
+                    self.action_filter.last_action = self.motor_targets.copy()
+                    self.action_filter.current_action = self.motor_targets.copy()
                 self._warn_limit_violations("current_after_start", self.motor_targets)
 
     def _print_startup_summary(self, onnx_model_path, motion_path):

@@ -30,12 +30,13 @@ def load_runtime_orders():
 JOINT_ORDER_16, ACTION_ORDER_14 = load_runtime_orders()
 
 
-def load_motion_start_targets(motion_path):
+def load_motion_start_targets(motion_path, start_frame):
     motion = np.load(motion_path)
-    joint_pos_16 = motion["joint_pos"][0].astype(np.float32)
+    frame = start_frame % motion["joint_pos"].shape[0]
+    joint_pos_16 = motion["joint_pos"][frame].astype(np.float32)
     if joint_pos_16.shape != (len(JOINT_ORDER_16),):
         raise ValueError(
-            f"motion joint_pos[0] shape {joint_pos_16.shape} does not match "
+            f"motion joint_pos[{frame}] shape {joint_pos_16.shape} does not match "
             f"{len(JOINT_ORDER_16)} joints"
         )
     values_by_name = dict(zip(JOINT_ORDER_16, joint_pos_16))
@@ -46,11 +47,11 @@ def zero_targets():
     return {name: 0.0 for name in ACTION_ORDER_14}
 
 
-def target_for_mode(mode, motion_path):
+def target_for_mode(mode, motion_path, start_frame):
     if mode == "zero":
         return zero_targets()
     if mode == "motion_start":
-        return load_motion_start_targets(motion_path)
+        return load_motion_start_targets(motion_path, start_frame)
     raise ValueError(f"Unsupported pose mode {mode!r}")
 
 
@@ -94,6 +95,12 @@ def main():
         "--duck_config_path",
         default=f"{HOME_DIR}/duck_config.json",
     )
+    parser.add_argument(
+        "--start_frame",
+        type=int,
+        default=0,
+        help="Reference motion frame used when --pose motion_start.",
+    )
     parser.add_argument("--serial_port", default="/dev/ttyACM0")
     parser.add_argument("--kp", type=float, default=2.0)
     parser.add_argument("--kd", type=float, default=0.0)
@@ -113,9 +120,12 @@ def main():
     motion_path = args.motion_path
     if not os.path.isabs(motion_path):
         motion_path = os.path.join(os.path.dirname(__file__), motion_path)
-    target = target_for_mode(args.pose, motion_path)
+    target = target_for_mode(args.pose, motion_path, args.start_frame)
 
-    print_table(f"target pose '{args.pose}' (rad):", target)
+    title = f"target pose '{args.pose}'"
+    if args.pose == "motion_start":
+        title += f" frame={args.start_frame}"
+    print_table(f"{title} (rad):", target)
     if args.dry_run:
         return
 
