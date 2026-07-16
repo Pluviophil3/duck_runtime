@@ -185,22 +185,67 @@ def motion_anchor_ori_b(robot_quat_wxyz, motion_anchor_quat_wxyz):
 
 class MjlabMotionReference:
     def __init__(self, motion_path):
-        data = np.load(motion_path)
-        self.joint_pos = data["joint_pos"].astype(np.float32)
-        self.joint_vel = data["joint_vel"].astype(np.float32)
+        data = np.load(motion_path, allow_pickle=True)
+        raw_joint_pos = data["joint_pos"].astype(np.float32)
+        raw_joint_vel = data["joint_vel"].astype(np.float32)
+        self.source_joint_names = self._source_joint_names(data, raw_joint_pos)
+        self.joint_pos, self.joint_vel = self._to_joint_order_16(
+            raw_joint_pos,
+            raw_joint_vel,
+            self.source_joint_names,
+        )
         self.body_quat_w = data["body_quat_w"].astype(np.float32)
         self.fps = float(np.asarray(data["fps"]).reshape(-1)[0])
 
-        if self.joint_pos.shape[1] != len(JOINT_ORDER_16):
-            raise ValueError(
-                f"motion joint_pos dim {self.joint_pos.shape[1]} != {len(JOINT_ORDER_16)}"
-            )
-        if self.joint_vel.shape[1] != len(JOINT_ORDER_16):
-            raise ValueError(
-                f"motion joint_vel dim {self.joint_vel.shape[1]} != {len(JOINT_ORDER_16)}"
-            )
         if self.body_quat_w.shape[1] <= ANCHOR_BODY_INDEX:
             raise ValueError("motion body_quat_w does not contain the anchor body")
+
+    @staticmethod
+    def _source_joint_names(data, joint_pos):
+        if "joint_names" in data.files:
+            names = tuple(str(name) for name in data["joint_names"])
+            if len(names) != joint_pos.shape[1]:
+                raise ValueError(
+                    "motion joint_names length "
+                    f"{len(names)} != joint_pos dim {joint_pos.shape[1]}"
+                )
+            return names
+        if joint_pos.shape[1] == len(JOINT_ORDER_16):
+            return JOINT_ORDER_16
+        raise ValueError(
+            "motion is missing joint_names; cannot map "
+            f"{joint_pos.shape[1]} joint columns to runtime order"
+        )
+
+    @staticmethod
+    def _to_joint_order_16(joint_pos, joint_vel, source_joint_names):
+        if joint_pos.shape != joint_vel.shape:
+            raise ValueError(
+                f"motion joint_pos shape {joint_pos.shape} != joint_vel shape {joint_vel.shape}"
+            )
+        source_index = {name: index for index, name in enumerate(source_joint_names)}
+        aligned_pos = np.zeros((joint_pos.shape[0], len(JOINT_ORDER_16)), dtype=np.float32)
+        aligned_vel = np.zeros_like(aligned_pos)
+        missing = []
+        for target_index, target_name in enumerate(JOINT_ORDER_16):
+            source_i = source_index.get(target_name)
+            if source_i is None:
+                missing.append(target_name)
+                continue
+            aligned_pos[:, target_index] = joint_pos[:, source_i]
+            aligned_vel[:, target_index] = joint_vel[:, source_i]
+
+            backlash_i = source_index.get(f"{target_name}_backlash")
+            if backlash_i is not None:
+                aligned_pos[:, target_index] += joint_pos[:, backlash_i]
+                aligned_vel[:, target_index] += joint_vel[:, backlash_i]
+
+        if missing:
+            raise ValueError(
+                "motion is missing runtime joints required by JOINT_ORDER_16: "
+                f"{missing}; source joints={source_joint_names}"
+            )
+        return aligned_pos, aligned_vel
 
     @property
     def num_frames(self):
