@@ -13,6 +13,14 @@ from mini_bdx_runtime.raw_imu import Imu
 from mini_bdx_runtime.rl_utils import LowPassActionFilter, make_action_dict
 from mini_bdx_runtime.rustypot_position_hwi import HWI
 
+try:
+    from mini_bdx_runtime.feet_contacts import FeetContacts
+except Exception as exc:
+    FeetContacts = None
+    FEET_CONTACTS_IMPORT_ERROR = exc
+else:
+    FEET_CONTACTS_IMPORT_ERROR = None
+
 
 HOME_DIR = os.path.expanduser("~")
 
@@ -53,24 +61,24 @@ ACTION_ORDER_14 = (
 )
 
 ACTION_SCALE_BY_JOINT = {
-    "left_hip_yaw": 0.13,
-    "left_hip_roll": 0.13,
-    "left_hip_pitch": 0.13,
-    "left_knee": 0.13,
-    "left_ankle": 0.13,
-    "right_hip_yaw": 0.13,
-    "right_hip_roll": 0.13,
-    "right_hip_pitch": 0.13,
-    "right_knee": 0.13,
-    "right_ankle": 0.13,
-    "neck_pitch": 0.10,
-    "head_pitch": 0.10,
-    "head_yaw": 0.10,
-    "head_roll": 0.10,
+    "left_hip_yaw": 0.25,
+    "left_hip_roll": 0.25,
+    "left_hip_pitch": 0.25,
+    "left_knee": 0.25,
+    "left_ankle": 0.25,
+    "right_hip_yaw": 0.25,
+    "right_hip_roll": 0.25,
+    "right_hip_pitch": 0.25,
+    "right_knee": 0.25,
+    "right_ankle": 0.25,
+    "neck_pitch": 0.25,
+    "head_pitch": 0.25,
+    "head_yaw": 0.25,
+    "head_roll": 0.25,
 }
 
 ANCHOR_BODY_INDEX = 0
-OBS_DIM = 87
+OBS_DIM = 114
 ACTION_DIM = 14
 
 JOINT_LIMITS_BY_JOINT = {
@@ -93,11 +101,14 @@ JOINT_LIMITS_BY_JOINT = {
 OBS_SLICES = (
     ("ref_pos", 0, 16),
     ("ref_vel", 16, 32),
-    ("anchor_ori", 32, 38),
-    ("gyro", 38, 41),
-    ("joint_pos", 41, 57),
-    ("joint_vel", 57, 73),
-    ("last_action", 73, 87),
+    ("gyro", 32, 35),
+    ("accelerometer", 35, 38),
+    ("joint_pos", 38, 54),
+    ("joint_vel", 54, 70),
+    ("last_action", 70, 84),
+    ("last_last_action", 84, 98),
+    ("last_last_last_action", 98, 112),
+    ("feet_contact", 112, 114),
 )
 
 
@@ -279,6 +290,7 @@ class MjlabRLWalk:
         joint_vel_scale=1.0,
         safety_clip=True,
         joint_limit_margin=0.02,
+        use_feet_contacts=True,
         debug_interval_s=1.0,
         debug_top_k=5,
         dry_run=False,
@@ -295,6 +307,7 @@ class MjlabRLWalk:
         self.joint_vel_scale = joint_vel_scale
         self.safety_clip = safety_clip
         self.joint_limit_margin = joint_limit_margin
+        self.use_feet_contacts = use_feet_contacts and not dry_run
         self.debug_interval_steps = max(1, int(round(debug_interval_s * control_freq)))
         self.debug_top_k = debug_top_k
 
@@ -307,8 +320,11 @@ class MjlabRLWalk:
             upside_down=self.duck_config.imu_upside_down,
         )
         self.hwi = None if dry_run else HWI(self.duck_config, serial_port)
+        self.feet_contacts = self._make_feet_contacts()
         self.pid = pid
         self.last_action = np.zeros(ACTION_DIM, dtype=np.float32)
+        self.last_last_action = np.zeros(ACTION_DIM, dtype=np.float32)
+        self.last_last_last_action = np.zeros(ACTION_DIM, dtype=np.float32)
         self.motion_i = start_frame
         self.last_timing = {}
         self.last_raw_action = np.zeros(ACTION_DIM, dtype=np.float32)
@@ -360,11 +376,22 @@ class MjlabRLWalk:
         print(f"  joint_vel_scale: {self.joint_vel_scale}")
         print(f"  max_target_step: {self.max_target_step}")
         print(f"  safety_clip: {self.safety_clip}, margin: {self.joint_limit_margin}")
+        print(f"  feet_contacts: {self.feet_contacts is not None}")
         print("  action order / scale / logical limits:")
         for name, scale, lo, hi in zip(
             ACTION_ORDER_14, self.action_scale, self.joint_lower, self.joint_upper
         ):
             print(f"    {name:16s} scale={scale:.3f} limit=[{lo:.3f}, {hi:.3f}]")
+
+    def _make_feet_contacts(self):
+        if not self.use_feet_contacts:
+            return None
+        if FeetContacts is None:
+            raise RuntimeError(
+                "feet contact GPIO helper is unavailable; use --no_feet_contacts "
+                "to run with zero foot-contact observations"
+            ) from FEET_CONTACTS_IMPORT_ERROR
+        return FeetContacts()
 
     def _check_runtime_order(self):
         if len(ACTION_ORDER_14) != ACTION_DIM:
@@ -428,6 +455,12 @@ class MjlabRLWalk:
         )
         return pos_16, vel_16
 
+    def _read_feet_contacts(self):
+        if self.feet_contacts is None:
+            return np.zeros(2, dtype=np.float32)
+        contacts = self.feet_contacts.get()
+        return np.asarray(contacts, dtype=np.float32)
+
     def get_obs(self):
         ref_pos, ref_vel, ref_anchor_quat = self.motion.frame(self.motion_i)
         imu_data = self.imu.get_data()
@@ -435,19 +468,23 @@ class MjlabRLWalk:
         if joint_pos is None or joint_vel is None:
             return None
 
-        robot_quat = np.asarray(imu_data["quat_wxyz"], dtype=np.float32)
-        anchor_ori = motion_anchor_ori_b(robot_quat, ref_anchor_quat)
+        del ref_anchor_quat
         gyro = np.asarray(imu_data["gyro"], dtype=np.float32)
+        accelerometer = np.asarray(imu_data["accelero"], dtype=np.float32)
+        feet_contacts = self._read_feet_contacts()
 
         obs = np.concatenate(
             [
                 ref_pos,
                 ref_vel,
-                anchor_ori,
                 gyro,
+                accelerometer,
                 joint_pos,
                 joint_vel,
                 self.last_action,
+                self.last_last_action,
+                self.last_last_last_action,
+                feet_contacts,
             ]
         ).astype(np.float32)
         if obs.shape != (OBS_DIM,):
@@ -529,8 +566,8 @@ class MjlabRLWalk:
     def _debug_print_step(self, obs, action, target):
         ref_pos = obs[0:16]
         ref_vel = obs[16:32]
-        joint_pos_16 = obs[41:57]
-        joint_vel_16 = obs[57:73]
+        joint_pos_16 = obs[38:54]
+        joint_vel_16 = obs[54:70]
         pos_by_name = dict(zip(JOINT_ORDER_16, joint_pos_16))
         vel_by_name = dict(zip(JOINT_ORDER_16, joint_vel_16))
         ref_by_name = dict(zip(JOINT_ORDER_16, ref_pos))
@@ -625,6 +662,8 @@ class MjlabRLWalk:
             target = self.action_filter.get_filtered_action()
         action_t1 = time.perf_counter()
 
+        self.last_last_last_action = self.last_last_action.copy()
+        self.last_last_action = self.last_action.copy()
         self.last_action = action.copy()
         self.motor_targets = target.copy()
 
@@ -678,6 +717,11 @@ def main():
     parser.add_argument("--pitch_bias", type=float, default=0.0)
     parser.add_argument("--cutoff_frequency", type=float, default=None)
     parser.add_argument("--max_target_step", type=float, default=0.08)
+    parser.add_argument(
+        "--no_rate_limit",
+        action="store_true",
+        help="Disable --max_target_step target slew-rate limiting.",
+    )
     parser.add_argument("--action_gain", type=float, default=1.0)
     parser.add_argument(
         "--start_frame",
@@ -701,6 +745,11 @@ def main():
         "--no_safety_clip",
         action="store_true",
         help="Disable MJCF joint-range clipping for target positions.",
+    )
+    parser.add_argument(
+        "--no_feet_contacts",
+        action="store_true",
+        help="Use zero foot-contact observations instead of GPIO inputs.",
     )
     parser.add_argument(
         "--joint_limit_margin",
@@ -750,7 +799,7 @@ def main():
         pid=(args.p, args.i, args.d),
         pitch_bias=args.pitch_bias,
         cutoff_frequency=args.cutoff_frequency,
-        max_target_step=args.max_target_step,
+        max_target_step=None if args.no_rate_limit else args.max_target_step,
         action_gain=args.action_gain,
         initial_pose=args.initial_pose,
         start_frame=args.start_frame,
@@ -758,6 +807,7 @@ def main():
         joint_vel_scale=args.joint_vel_scale,
         safety_clip=not args.no_safety_clip,
         joint_limit_margin=args.joint_limit_margin,
+        use_feet_contacts=not args.no_feet_contacts,
         debug_interval_s=args.debug_interval_s,
         debug_top_k=args.debug_top_k,
         dry_run=args.dry_run,
