@@ -1,3 +1,21 @@
+# 修改说明
+
+本分支在原始 `duck_runtime` 的基础上，主要改成了面向 `mjlab` tracking
+policy 的实机部署版本。核心改动包括：
+
+- 新增 `scripts/v2_rl_walk_mjlab.py` 作为当前主运行入口，使用 reference
+  motion、IMU、关节状态、动作历史和足底触点拼接 114D observation，再通过
+  ONNX policy 输出 14D action 下发到真实电机。
+- 新增当前部署使用的 policy、motion 和 manifest，例如
+  `scripts/sway_t2_full.onnx`、`scripts/A2_-_Sway_t2_stageii.npz` 和
+  `scripts/mjlab_sway_t2_full_manifest.json`。
+- 新增 `checker/` 下的硬件关节检查和关节限位记录工具，用于实机调试真实关节
+  范围、初始姿态和日志分析。
+- 修改硬件接口：IMU 读取增加四元数缓存；`HWI.turn_on()` 支持指定上电目标姿态；
+  `set_position_all()` 改为只下发传入的关节目标，方便部分关节控制和安全调试。
+- 更新 `duck_config.json` 中的关节 offset，并补充 `RUNTIME_PIPELINE.md` 用于说明
+  observation -> policy -> motor 的完整闭环。
+
 # Open Duck Runtime
 
 本文档面向当前 `mjlab` runtime 部署版本，说明仓库结构、主运行脚本
